@@ -22,7 +22,6 @@ const ThemeToggleButton = () => {
 				position: 'relative',
 			}}
 		>
-			{/* {mode} */}
 			<Box
 				sx={{
 					position: 'absolute',

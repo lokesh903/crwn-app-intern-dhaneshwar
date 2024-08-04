@@ -323,7 +323,7 @@ const ImageMarked = styled('span')(({ theme }) => ({
 const ProductCard = React.memo(({ product }: { product: Item }) => {
 	const theme = useTheme();
 	return (
-		<Grid item={true} xs={6} sm={6} md={3} key={product.id}>
+		<Grid item={true} xs={6} sm={4} md={3} key={product.id}>
 			<ImageButton
 				focusRipple
 				style={{
@@ -348,6 +348,7 @@ const ProductCard = React.memo(({ product }: { product: Item }) => {
 								textTransform: 'capitalize',
 								color: theme.palette.text.secondary,
 								fontWeight: '900',
+								fontSize: { xs: 14, md: 12 },
 							}}
 							gutterBottom
 						>
@@ -372,6 +373,7 @@ const ProductCard = React.memo(({ product }: { product: Item }) => {
 						sx={{
 							color: theme.palette.primary.main,
 							'&:hover': { color: 'blue' },
+							p: 0,
 						}}
 						aria-label="add to shopping cart"
 					>
@@ -394,7 +396,7 @@ const CategoryPreview: React.FC = () => {
 
 	return (
 		<>
-			<Container className="">
+			<Container sx={{ pt: 6 }}>
 				<div>CategoryPreview: {categoryName}</div>
 				<Grid
 					container
