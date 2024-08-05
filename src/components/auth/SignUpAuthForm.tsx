@@ -6,7 +6,7 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { asyncCreateUserWithEmailAndPassword } from '../../utils/config/FirebaseAuthActions';
 import { useUserData } from '../../context/User.Context';
 interface FormElements extends HTMLFormControlsCollection {

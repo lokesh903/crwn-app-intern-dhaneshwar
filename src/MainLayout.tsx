@@ -8,13 +8,15 @@ import { useUserData } from './context/User.Context';
 const MainLayout: React.FC = () => {
 	const [mount, setMount] = useState<boolean>(false);
 	const { state, setCurrentUser } = useUserData();
-	const { user, isAuth, error } = state;
+	const { user, isAuth } = state;
 	// console.log(state);
 
 	useEffect(() => {
 		const fetchCurrentUser = async () => {
 			const user = await asyncCurrentLoggedInUser();
-			setCurrentUser(user);
+			if (user) {
+				setCurrentUser(user);
+			}
 		};
 		fetchCurrentUser();
 	}, []);

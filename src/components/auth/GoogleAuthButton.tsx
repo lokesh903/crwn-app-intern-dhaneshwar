@@ -9,7 +9,7 @@ import { useUserData } from '../../context/User.Context';
 import { useNavigate } from 'react-router-dom';
 
 const GoogleAuthButton: React.FC = () => {
-	const { state, setCurrentUser } = useUserData();
+	const { setCurrentUser } = useUserData();
 	const navigate = useNavigate();
 
 	const hancleGoogleSignIn = async () => {

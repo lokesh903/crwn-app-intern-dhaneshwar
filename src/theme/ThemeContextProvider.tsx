@@ -1,11 +1,5 @@
 import { createTheme, Theme } from '@mui/material';
-import {
-	createContext,
-	FC,
-	PropsWithChildren,
-	useContext,
-	useEffect,
-} from 'react';
+import { createContext, FC, PropsWithChildren, useContext } from 'react';
 import { useColorTheme } from './use-color-theme';
 
 type ThemeContextType = {
@@ -27,7 +21,6 @@ export const ThemeContextProvider: FC<PropsWithChildren> = ({ children }) => {
 	// }, []);
 	// console.log(value.mode);
 	// console.log(value);
-	
 
 	return (
 		<ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

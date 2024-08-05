@@ -1,13 +1,14 @@
 import React from 'react';
 import { Container, Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { experimentalStyled as styled, useTheme } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Grid } from '@mui/material';
-import { SHOP_DATA_PRODUCTS } from '../../utils/store/ClothingData';
+// import { SHOP_DATA_PRODUCTS } from '../../utils/store/ClothingData';
+import useProductContext from '../../context/Product.Context';
 interface Item {
 	id: number;
 	name: string;
@@ -15,12 +16,12 @@ interface Item {
 	price: number;
 }
 
-interface Category {
-	title: string;
-	items: Item[];
-}
+// interface Category {
+// 	title: string;
+// 	items: Item[];
+// }
 
-const SHOP_DATA: Category[] = SHOP_DATA_PRODUCTS;
+// const allProducts: Category[] = SHOP_DATA_PRODUCTS;
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
 	position: 'relative',
 	height: 200,
@@ -72,17 +73,17 @@ const ImageBackdrop = styled('span')(({ theme }) => ({
 	transition: theme.transitions.create('opacity'),
 }));
 
-const ImageMarked = styled('span')(({ theme }) => ({
-	height: 3,
-	width: 18,
-	backgroundColor: theme.palette.common.white,
-	position: 'absolute',
-	bottom: -2,
-	left: 'calc(50% - 9px)',
-	transition: theme.transitions.create('opacity'),
-}));
+// const ImageMarked = styled('span')(({ theme }) => ({
+// 	height: 3,
+// 	width: 18,
+// 	backgroundColor: theme.palette.common.white,
+// 	position: 'absolute',
+// 	bottom: -2,
+// 	left: 'calc(50% - 9px)',
+// 	transition: theme.transitions.create('opacity'),
+// }));
 
-const ProductCard = React.memo(({ product }: { product: Item }) => {
+export const ProductCard = React.memo(({ product }: { product: Item }) => {
 	const theme = useTheme();
 	return (
 		<Grid item={true} xs={6} sm={4} md={3} key={product.id}>
@@ -149,11 +150,28 @@ const ProductCard = React.memo(({ product }: { product: Item }) => {
 		</Grid>
 	);
 });
+// interface ProductTypee {
+// 	id: number;
+// 	name: string;
+// 	imageUrl: string;
+// 	price: number;
+// }
+// interface ProductTypeParente {
+// 	title: string;
+// 	items: ProductTypee[];
+// }
 const CategoryPreview: React.FC = () => {
 	const { categoryName } = useParams<{ categoryName: string }>();
-	const filteredCategoryProducts = SHOP_DATA.find(
-		category => category.title.toLowerCase() === categoryName?.toLowerCase()
+	const categoryKey = categoryName?.toLowerCase() || '';
+	console.log(categoryKey);
+
+	const { allProducts } = useProductContext();
+	console.log(allProducts);
+	const filteredCategoryProducts = allProducts?.find(
+		category => category.title.toLowerCase() === categoryKey
 	);
+	console.log(filteredCategoryProducts);
+
 	if (!filteredCategoryProducts) {
 		return <div>Category not found</div>;
 	}
@@ -162,13 +180,13 @@ const CategoryPreview: React.FC = () => {
 	return (
 		<>
 			<Container sx={{ pt: 6 }}>
-				<div>CategoryPreview: {categoryName}</div>
+				<div>CategoryPreview: {categoryKey}</div>
 				<Grid
 					container
 					spacing={{ xs: 3, md: 6 }}
 					columns={{ xs: 12, sm: 8, md: 12 }}
 				>
-					{items.map((product: Item) => (
+					{items?.map((product: Item) => (
 						<ProductCard key={product.id} product={product} />
 					))}
 				</Grid>

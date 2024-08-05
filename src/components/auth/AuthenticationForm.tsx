@@ -47,9 +47,7 @@ function ColorSchemeToggle(props: IconButtonProps) {
 export default function JoySignInSideTemplate() {
 	const [formChange, setFormChange] = React.useState(true);
 	// const theme = useThemeContext();
-	const handleFormChange = (
-		event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-	) => {
+	const handleFormChange = () => {
 		setFormChange(prev => !prev);
 	};
 	return (
@@ -59,7 +57,7 @@ export default function JoySignInSideTemplate() {
 				styles={{
 					':root': {
 						'--Form-maxWidth': '800px',
-						'--Transition-duration': '0.4s', 
+						'--Transition-duration': '0.4s',
 					},
 				}}
 			/>

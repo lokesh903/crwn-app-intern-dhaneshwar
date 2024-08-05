@@ -29,7 +29,7 @@ const defaultFormFields: defaultFormFieldsValue = {
 
 const SingInAuthForm: React.FC = () => {
 	const navigate = useNavigate();
-	const { state, setCurrentUser } = useUserData();
+	const { setCurrentUser } = useUserData();
 	const [formDetails, setFormDetails] =
 		React.useState<defaultFormFieldsValue>(defaultFormFields);
 
