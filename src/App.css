@@ -7,11 +7,11 @@
 	/* text-align: center; */
 }
 @media only screen and (max-width: 600px) {
-  #root {
-	padding: 0 1.2rem;
-  }
+	#root {
+		padding: 0 1.2rem;
+	}
 }
-  /* #root {
+/* #root {
     background-color: #ffffff;
     color: #000000;
   } */
@@ -28,7 +28,8 @@
 	will-change: filter;
 	transition: filter 300ms;
 	/* color: #101014de; */
-	color: white;
+	/* color: white; */
+	/* color: rgb(255, 255, 255); */
 	/* color: black; */
 }
 .logo:hover {

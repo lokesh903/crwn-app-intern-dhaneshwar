@@ -6,8 +6,9 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { asyncCreateUserWithEmailAndPassword } from '../../utils/config/FirebaseAuthActions';
+import { useUserData } from '../../context/User.Context';
 interface FormElements extends HTMLFormControlsCollection {
 	email: HTMLInputElement;
 	password: HTMLInputElement;
@@ -30,6 +31,8 @@ const defaultFormFields: defaultFormFieldsValue = {
 };
 
 const SingUpAuthForm: React.FC = () => {
+	const navigate = useNavigate();
+	const { setCurrentUser } = useUserData();
 	const [formDetails, setFormDetails] =
 		React.useState<defaultFormFieldsValue>(defaultFormFields);
 
@@ -48,14 +51,16 @@ const SingUpAuthForm: React.FC = () => {
 				email,
 				password
 			);
-			console.log(user);
+			setCurrentUser(user);
 			setFormDetails({
 				displayName: '',
 				email: '',
 				password: '',
-				confirmPassword: '',
+				confirmPassword: '',	
 			});
-			// console.log(formDetails);
+			if (user) {
+				navigate('/shop');
+			}
 		} catch (error) {
 			console.error(error);
 		}

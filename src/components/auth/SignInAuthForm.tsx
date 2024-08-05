@@ -6,8 +6,9 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { asyncSignInUserWithEmailAndPassword } from '../../utils/config/FirebaseAuthActions';
+import { useUserData } from '../../context/User.Context';
 
 interface FormElements extends HTMLFormControlsCollection {
 	email: HTMLInputElement;
@@ -27,6 +28,8 @@ const defaultFormFields: defaultFormFieldsValue = {
 };
 
 const SingInAuthForm: React.FC = () => {
+	const navigate = useNavigate();
+	const { state, setCurrentUser } = useUserData();
 	const [formDetails, setFormDetails] =
 		React.useState<defaultFormFieldsValue>(defaultFormFields);
 
@@ -41,11 +44,15 @@ const SingInAuthForm: React.FC = () => {
 				email,
 				password
 			);
-			console.log(user);
+			// console.log(user);
+			setCurrentUser(user);
 			setFormDetails({
 				email: '',
 				password: '',
 			});
+			if (user) {
+				navigate('/shop');
+			}
 		} catch (error) {
 			console.error(error);
 		}

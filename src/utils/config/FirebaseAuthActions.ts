@@ -17,7 +17,7 @@ export const asyncCurrentLoggedInUser = () => {
 				if (user) {
 					resolve(user);
 				} else {
-					resolve('No user found! Sign In');
+					resolve(null);
 				}
 			},
 			reject

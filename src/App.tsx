@@ -1,13 +1,10 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/homepage/HomePage';
-import MainLayout from './MainLayout';
 import { ThemeProvider } from '@mui/material';
+import MainLayout from './MainLayout';
 import { useThemeContext } from './theme/ThemeContextProvider';
-import AllProducts from './pages/products/AllProducts';
-import CategoryPreview from './pages/category-preview/CategoryPreview';
-import AuthenticationPage from './pages/authentication/AuthenticationPage';
-import { AuthenticationForm } from './components/auth';
+import { AllProducts, AuthenticationPage, CategoryPreview, HomePage } from './pages';
+
 
 const App: React.FC = () => {
 	const { theme } = useThemeContext();
@@ -24,8 +21,10 @@ const App: React.FC = () => {
 								element={<CategoryPreview />}
 							/>
 						</Route>
-						<Route path="/auth" element={<AuthenticationPage />} />
-						<Route path="/authe" element={<AuthenticationForm />} />
+						<Route
+							path="/authentication"
+							element={<AuthenticationPage />}
+						/>
 					</Route>
 				</Routes>
 			</ThemeProvider>

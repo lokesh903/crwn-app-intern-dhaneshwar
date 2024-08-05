@@ -1,10 +1,10 @@
 import React from 'react';
 import ShoppingBagTwoToneIcon from '@mui/icons-material/ShoppingBagTwoTone';
-import { Box, Button, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 const CartIcon: React.FC = () => {
 	return (
-		<Box
+		<Button
 			sx={{
 				display: 'flex',
 				alignItems: 'center',
@@ -14,25 +14,22 @@ const CartIcon: React.FC = () => {
 				borderColor: 'text.primary',
 				border: '1px solid',
 				borderRadius: 25,
-				// px: 1,
-				// py: 1,
-				width: 'fit-content',
-				position: 'relative',
-				mr: 1,
-				ml: 1,
+				px: 2,
+				py: 0.8,
+				ml: .7,
+				mr: 0.7,
+				whiteSpace: 'nowrap',
+				width: '100%',
+				'&:hover': {
+					bgcolor: 'text.primary',
+					color: 'text.hover',
+				},
 			}}
+			variant="contained"
+			startIcon={<ShoppingBagTwoToneIcon fontSize="large" />}
 		>
-			<Button
-				startIcon={
-					<ShoppingBagTwoToneIcon
-						fontSize="large"
-						sx={{ color: 'text.primary' }}
-					/>
-				}
-			>
-				<Typography sx={{ color: 'text.primary' }}>3</Typography>
-			</Button>
-		</Box>
+			<Typography>3</Typography>
+		</Button>
 	);
 };
 export default CartIcon;

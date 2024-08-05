@@ -1,10 +1,15 @@
 import { Outlet } from 'react-router-dom';
 import NavBar from './pages/navigation/NavBar';
 import { CssBaseline } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { asyncCurrentLoggedInUser } from './utils/config/FirebaseAuthActions';
+import { useUserData } from './context/User.Context';
+
 const MainLayout: React.FC = () => {
-	const [currentUser, setCurrentUser] = useState<any>(null);
+	const [mount, setMount] = useState<boolean>(false);
+	const { state, setCurrentUser } = useUserData();
+	const { user, isAuth, error } = state;
+	// console.log(state);
 
 	useEffect(() => {
 		const fetchCurrentUser = async () => {
@@ -15,9 +20,15 @@ const MainLayout: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log(currentUser.uid);
-	}, [currentUser]);
+		// console.log(currentUser);
+		// console.log(user);
+		// console.log(isAuth);
+	}, [user, isAuth]);
 
+	useEffect(() => {
+		setMount(true);
+	}, []);
+	if (!mount) return null;
 	return (
 		<>
 			<div className="w-full">

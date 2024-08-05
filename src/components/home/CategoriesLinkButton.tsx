@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
+import { PRODUCT_CATEGORIES } from '../../utils/store/ClothingData';
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
 	position: 'relative',
@@ -69,38 +70,8 @@ const ImageMarked = styled('span')(({ theme }) => ({
 	transition: theme.transitions.create('opacity'),
 }));
 
-const categories = [
-	{
-		id: 1,
-		title: 'hats',
-		imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-		route: 'shop/hats',
-	},
-	{
-		id: 2,
-		title: 'jackets',
-		imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-		route: 'shop/jackets',
-	},
-	{
-		id: 3,
-		title: 'sneakers',
-		imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-		route: 'shop/sneakers',
-	},
-	{
-		id: 4,
-		title: 'womens',
-		imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-		route: 'shop/womens',
-	},
-	{
-		id: 5,
-		title: 'mens',
-		imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-		route: 'shop/mens',
-	},
-];
+
+const categories = PRODUCT_CATEGORIES;
 
 const CategoriesLinkButton: React.FC = () => {
 	return (

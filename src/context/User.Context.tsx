@@ -1,4 +1,4 @@
-import {
+import React, {
 	createContext,
 	useContext,
 	useReducer,
@@ -7,36 +7,52 @@ import {
 	ReactNode,
 } from 'react';
 
+type User = any | null;
 interface State {
-	user: any[];
+	user: User;
 	isAuth: boolean;
-	error: string;
+	error: string | null;
+	setCurrentUser: (user: User) => void;
 }
 
 interface UserDataProviderProps {
 	children: ReactNode;
 }
-type Action =
-	| { type: 'SET_USER'; user: any[] }
-	| { type: 'SET_IS_USER_AUTH'; isAuth: boolean }
-	| { type: 'SET_ERROR'; error: string };
 
 const initialState: State = {
-	user: [],
+	user: null,
 	isAuth: false,
-	error: '',
+	error: null,
+	setCurrentUser: () => {},
 };
+type Action =
+	| { type: 'SET_USER'; user: User }
+	| { type: 'SET_IS_USER_AUTH'; isAuth: boolean }
+	| { type: 'SET_ERROR'; error: User }
+	| { type: 'REMOVE_USER' }
+	| { type: 'SET_CURRENT_USER'; user: User };
+
 const reducer = (state: State, action: Action) => {
 	switch (action.type) {
 		case 'SET_USER':
 			return {
 				...state,
 				user: action.user,
+				isAuth: true,
+				error: null,
 			};
-		case 'SET_IS_USER_AUTH':
+		case 'REMOVE_USER':
 			return {
 				...state,
-				isAuth: action.isAuth,
+				user: null,
+				isAuth: false,
+				error: null,
+			};
+		case 'SET_CURRENT_USER':
+			return {
+				...state,
+				user: action.user,
+				isAuth: true,
 			};
 		case 'SET_ERROR':
 			return {
@@ -52,6 +68,7 @@ const reducer = (state: State, action: Action) => {
 interface UserContextDataValue {
 	state: State;
 	dispatch: Dispatch<Action>;
+	setCurrentUser: (user: User) => void;
 }
 
 export const UserDataContext = createContext<UserContextDataValue | undefined>(
@@ -62,11 +79,14 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({
 	children,
 }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const setCurrentUser = (user: User) => {
+		dispatch({ type: 'SET_CURRENT_USER', user });
+	};
 
 	const values = useMemo(() => {
-		return { state, dispatch };
+		return { state, dispatch, setCurrentUser };
 	}, [state, dispatch]);
-	``;
+
 	return (
 		<UserDataContext.Provider value={values}>
 			{children}
@@ -75,7 +95,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({
 };
 
 // this Custom help to avoid importing many time in componet of useContext;
-export const useUserData = () => {
+export const useUserData = (): UserContextDataValue => {
 	const context = useContext(UserDataContext);
 	if (context === undefined) {
 		throw new Error('User Data is not available');

@@ -1,27 +1,26 @@
 import React from 'react';
 import Button from '@mui/joy/Button';
 import GoogleIcon from './GoogleIcon';
-import { auth } from '../../utils/config/Firebase';
-import { onAuthStateChanged } from 'firebase/auth';
-import { asyncSignInWithGoogle } from '../../utils/config/FirebaseAuthActions';
+import {
+	asyncCurrentLoggedInUser,
+	asyncSignInWithGoogle,
+} from '../../utils/config/FirebaseAuthActions';
+import { useUserData } from '../../context/User.Context';
+import { useNavigate } from 'react-router-dom';
 
 const GoogleAuthButton: React.FC = () => {
-	console.log(auth?.currentUser?.email);
-
-	onAuthStateChanged(auth, user => {
-		if (user) {
-			// console.log(user);
-			const uid = user.uid;
-			// console.log(uid);
-		} else {
-			// User is signed out
-			// ...
-		}
-	});
+	const { state, setCurrentUser } = useUserData();
+	const navigate = useNavigate();
 
 	const hancleGoogleSignIn = async () => {
 		try {
-			await asyncSignInWithGoogle();
+			const { user } = await asyncSignInWithGoogle();
+			// 	console.log(user);
+			if (user) {
+				await asyncCurrentLoggedInUser();
+				setCurrentUser(user);
+				navigate('/');
+			}
 		} catch (error) {
 			console.error(error);
 		}
