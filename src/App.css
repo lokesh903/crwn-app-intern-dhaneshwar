@@ -6,11 +6,11 @@
 
 	/* text-align: center; */
 }
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
 	#root {
 		padding: 0 1.2rem;
 	}
-}
+} */
 /* #root {
     background-color: #ffffff;
     color: #000000;

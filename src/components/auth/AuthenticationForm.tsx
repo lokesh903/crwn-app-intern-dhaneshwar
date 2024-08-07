@@ -10,7 +10,7 @@ import Stack from '@mui/joy/Stack';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 // import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
-import { useThemeContext } from '../../theme/ThemeContextProvider';
+import { useThemeContext } from '../../context/theme/ThemeContextProvider';
 import { Link } from 'react-router-dom';
 import { GoogleAuthButton, SignInAuthForm, SignUpAuthForm } from '.';
 

@@ -5,11 +5,11 @@ import {
 	asyncCurrentLoggedInUser,
 	asyncSignInWithGoogle,
 } from '../../utils/config/FirebaseAuthActions';
-import { useUserData } from '../../context/User.Context';
+import { useUserDataContext } from '../../context';
 import { useNavigate } from 'react-router-dom';
 
 const GoogleAuthButton: React.FC = () => {
-	const { setCurrentUser } = useUserData();
+	const { setCurrentUser } = useUserDataContext();
 	const navigate = useNavigate();
 
 	const hancleGoogleSignIn = async () => {

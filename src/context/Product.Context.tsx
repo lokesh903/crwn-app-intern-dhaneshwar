@@ -5,15 +5,10 @@ import {
 	useEffect,
 	useState,
 } from 'react';
-// import { SHOP_DATA_PRODUCTS } from '../utils/store/ClothingData';
-import { db } from '../utils/config/Firebase';
 import {
-	collection,
-	// doc,
-	getDocs,
-	query,
-	// writeBatch,
-} from 'firebase/firestore';
+	// asyncAddProductDataToFirestore,
+	asyncGetAllProductsDataFromFirestore,
+} from '../utils/config/FirebaseProductAction';
 
 interface ProductTypeValue {
 	id: number;
@@ -23,7 +18,7 @@ interface ProductTypeValue {
 }
 interface ProductTypeParent {
 	title: string;
-	items:  ProductTypeValue [];
+	items: ProductTypeValue[];
 }
 interface ProductContextValue {
 	allProducts: ProductTypeParent[];
@@ -32,65 +27,31 @@ const initialProduct: ProductContextValue = {
 	allProducts: [],
 };
 
-// const PRODUCTS_DATA: ProductTypeParent[] = SHOP_DATA_PRODUCTS;
-
 export const ProductsDataContext = createContext(initialProduct);
 
 export const ProductsDataContextProvider: React.FC<{ children: ReactNode }> = ({
 	children,
 }) => {
-	const [allProducts, SetAllProducts] = useState<ProductTypeParent[]>(
+	const [allProducts, setAllProducts] = useState<ProductTypeParent[]>(
 		initialProduct.allProducts
 	);
 
-	// Function to add product categories to Firestore
-	// const addProductCategoriesToFirestore = async () => {
-	// 	const collectionRefForData = collection(db, 'clothData');
-	// 	const batch = writeBatch(db);
-	// 	PRODUCTS_DATA.forEach(object => {
-	// 		const documentCategoryRef = doc(
-	// 			collectionRefForData,
-	// 			object?.title.toLowerCase()
-	// 		);
-	// 		batch.set(documentCategoryRef, { items: object.items });
-	// 	});
-	// 	await batch.commit();
-	// 	// console.log('Data added to Firestore');
+	// Function to ADD ALL PRODUCTS to Firestore
+	// const addAllDataToFireStore = async () => {
+	// 	const data = await asyncAddProductDataToFirestore();
+	// 	console.log(data);
 	// };
 
-	// Function to fetch categories map from Firestore
-	const getCategoriesMap = async () => {
-		const collectionRef = collection(db, 'clothData');
-		const q = query(collectionRef);
-		const querySnapshot = await getDocs(q);
-		// console.log(querySnapshot);
-		const categoryMap = querySnapshot.docs.map(docSnapShot => {
-			const data = docSnapShot.data();
-			return {
-				title: docSnapShot.id,
-				items: data.items as ProductTypeValue[],
-			};
-		});
-		SetAllProducts(categoryMap);
+	// Funtions for FETCH ALL PRODUCTS from FIRESTORE in First Render
+	const getAllData = async () => {
+		const data = await asyncGetAllProductsDataFromFirestore();
+		setAllProducts(data);
 	};
 
 	useEffect(() => {
-		// const checkAndStoreData = async () => {
-		// 	const collectionRef = collection(db, 'clothData');
-		// 	const q = query(collectionRef);
-		// 	const querySnapshot = await getDocs(q);
-		// 	if (querySnapshot.empty) {
-		// 		await addProductCategoriesToFirestore();
-		// 	} else {
-		// 		// Data already exists, fetch it
-		// 		const categoryMap = await getCategoriesMap();
-		// 		SetAllProducts({ (allProducts: categoryMap });
-		// 	}
-		// };
-		getCategoriesMap();
-		// checkAndStoreData();
+		// addAllDataToFireStore();
+		getAllData();
 	}, []);
-	console.log(allProducts);
 
 	return (
 		<ProductsDataContext.Provider value={{ allProducts }}>
@@ -99,6 +60,6 @@ export const ProductsDataContextProvider: React.FC<{ children: ReactNode }> = ({
 	);
 };
 
-export default function useProductContext() {
+export const useProductContext = () => {
 	return useContext(ProductsDataContext);
-}
+};

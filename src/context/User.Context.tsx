@@ -26,20 +26,18 @@ const initialState: State = {
 	setCurrentUser: () => {},
 };
 type Action =
-	| { type: 'SET_USER'; user: User }
+	| { type: 'SET_CURRENT_USER'; user: User }
 	| { type: 'SET_IS_USER_AUTH'; isAuth: boolean }
 	| { type: 'SET_ERROR'; error: User }
-	| { type: 'REMOVE_USER' }
-	| { type: 'SET_CURRENT_USER'; user: User };
+	| { type: 'REMOVE_USER' };
 
 const reducer = (state: State, action: Action) => {
 	switch (action.type) {
-		case 'SET_USER':
+		case 'SET_CURRENT_USER':
 			return {
 				...state,
 				user: action.user,
 				isAuth: true,
-				error: null,
 			};
 		case 'REMOVE_USER':
 			return {
@@ -47,12 +45,6 @@ const reducer = (state: State, action: Action) => {
 				user: null,
 				isAuth: false,
 				error: null,
-			};
-		case 'SET_CURRENT_USER':
-			return {
-				...state,
-				user: action.user,
-				isAuth: true,
 			};
 		case 'SET_ERROR':
 			return {
@@ -95,7 +87,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({
 };
 
 // this Custom help to avoid importing many time in componet of useContext;
-export const useUserData = (): UserContextDataValue => {
+export const useUserDataContext = (): UserContextDataValue => {
 	const context = useContext(UserDataContext);
 	if (context === undefined) {
 		throw new Error('User Data is not available');

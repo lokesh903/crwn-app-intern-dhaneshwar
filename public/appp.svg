@@ -1,7 +1,0 @@
-export const useUserData = () => {
-	const context = useContext(UserDataContext);
-	if (context === undefined) {
-		throw new Error('User Data is not available');
-	}
-	return context;
-};

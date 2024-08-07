@@ -1,15 +1,18 @@
 import { Outlet } from 'react-router-dom';
-import NavBar from './pages/navigation/NavBar';
+import NavBar from '../pages/navigation/NavBar';
 import { CssBaseline } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { asyncCurrentLoggedInUser } from './utils/config/FirebaseAuthActions';
-import { useUserData } from './context/User.Context';
+import { asyncCurrentLoggedInUser } from '../utils/config/FirebaseAuthActions';
+import { useUserDataContext } from '../context';
+// import { useProductContext } from '../context';
 
 const MainLayout: React.FC = () => {
 	const [mount, setMount] = useState<boolean>(false);
-	const { state, setCurrentUser } = useUserData();
+	const { state, setCurrentUser } = useUserDataContext();
 	const { user, isAuth } = state;
+	// const { allProducts } = useProductContext();
 	// console.log(state);
+	// console.log(allProducts);
 
 	useEffect(() => {
 		const fetchCurrentUser = async () => {

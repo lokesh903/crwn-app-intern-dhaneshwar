@@ -1,13 +1,19 @@
 import React from 'react';
-import CategoriesLinkButton from '../../components/home/CategoriesLinkButton';
+import {
+	CategoriesLinkButtonsContainer,
+	PageContainer,
+} from '../../containers';
+import { BigHeading } from '../../components';
 
 const HomePage: React.FC = () => {
 	return (
-		<div className=" text-center h-screen pt-16 px-8">
-			HomePage Page 
-			<CategoriesLinkButton />
-		</div>
-	);
+		<PageContainer>
+			<BigHeading sx={{ textAlign: 'center' }}>
+				-: All Categories Types :-
+			</BigHeading>
+			<CategoriesLinkButtonsContainer />
+		</PageContainer>
+	);	
 };
 
 export default HomePage;
