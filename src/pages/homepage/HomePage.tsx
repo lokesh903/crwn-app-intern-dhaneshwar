@@ -6,6 +6,7 @@ import {
 import { BigHeading } from '../../components';
 
 const HomePage: React.FC = () => {
+
 	return (
 		<PageContainer>
 			<BigHeading sx={{ textAlign: 'center' }}>
@@ -13,7 +14,7 @@ const HomePage: React.FC = () => {
 			</BigHeading>
 			<CategoriesLinkButtonsContainer />
 		</PageContainer>
-	);	
+	);
 };
 
 export default HomePage;

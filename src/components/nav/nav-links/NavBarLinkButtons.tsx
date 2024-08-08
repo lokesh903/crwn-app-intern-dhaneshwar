@@ -17,6 +17,8 @@ const NavBarLinkButtons: React.FC = () => {
 			await dispatch({ type: 'REMOVE_USER' });
 			await asyncLogOutUser();
 		} catch (error) {
+			console.log('logout');
+
 			console.error(error);
 		}
 	};

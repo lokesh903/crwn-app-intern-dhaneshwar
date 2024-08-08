@@ -13,6 +13,7 @@ interface State {
 	isAuth: boolean;
 	error: string | null;
 	setCurrentUser: (user: User) => void;
+	setError: () => void;
 }
 
 interface UserDataProviderProps {
@@ -24,11 +25,12 @@ const initialState: State = {
 	isAuth: false,
 	error: null,
 	setCurrentUser: () => {},
+	setError: () => {},
 };
 type Action =
 	| { type: 'SET_CURRENT_USER'; user: User }
 	| { type: 'SET_IS_USER_AUTH'; isAuth: boolean }
-	| { type: 'SET_ERROR'; error: User }
+	| { type: 'SET_ERROR'; error: string | null }
 	| { type: 'REMOVE_USER' };
 
 const reducer = (state: State, action: Action) => {
@@ -61,6 +63,7 @@ interface UserContextDataValue {
 	state: State;
 	dispatch: Dispatch<Action>;
 	setCurrentUser: (user: User) => void;
+	setError: (error: string | null) => void;
 }
 
 export const UserDataContext = createContext<UserContextDataValue | undefined>(
@@ -74,9 +77,11 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({
 	const setCurrentUser = (user: User) => {
 		dispatch({ type: 'SET_CURRENT_USER', user });
 	};
-
+	const setError = (error: string | null) => {
+		dispatch({ type: 'SET_ERROR', error });
+	};
 	const values = useMemo(() => {
-		return { state, dispatch, setCurrentUser };
+		return { state, dispatch, setCurrentUser, setError };
 	}, [state, dispatch]);
 
 	return (

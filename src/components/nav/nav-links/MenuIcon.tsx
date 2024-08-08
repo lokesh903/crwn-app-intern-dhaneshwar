@@ -1,6 +1,5 @@
 import React from 'react';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import { Typography } from '@mui/material';
 import { CustomNavButton } from '../../button';
 import { MenuIconProps } from '../../../utils/types/types';
 

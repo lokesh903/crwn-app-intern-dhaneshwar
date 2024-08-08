@@ -12,8 +12,8 @@ import {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	// <React.StrictMode>
-	<UserDataProvider>
-		<ProductsDataContextProvider>
+	<ProductsDataContextProvider>
+		<UserDataProvider>
 			<CartDataProvider>
 				<ThemeContextProvider>
 					<BrowserRouter>
@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 					</BrowserRouter>
 				</ThemeContextProvider>
 			</CartDataProvider>
-		</ProductsDataContextProvider>
-	</UserDataProvider>
+		</UserDataProvider>
+	</ProductsDataContextProvider>
 	// </React.StrictMode>
 );

@@ -3,18 +3,25 @@ import NavBar from '../pages/navigation/NavBar';
 import { CssBaseline } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { asyncCurrentLoggedInUser } from '../utils/config/FirebaseAuthActions';
-import { useCartDataContext, useUserDataContext } from '../context';
+import {
+	useCartDataContext,
+	useProductContext,
+	useUserDataContext,
+} from '../context';
 import { CartSidebar } from '../components/cart/CartSideBar.test';
 import { CartItems } from '../components';
+import { toast } from 'react-toastify';
 // import { useProductContext } from '../context';
 
 const MainLayout: React.FC = () => {
 	const [mount, setMount] = useState<boolean>(false);
-	const { state, setCurrentUser } = useUserDataContext();
-	const { user, isAuth } = state;
+	const { state, setCurrentUser, setError } = useUserDataContext();
+	const { user, isAuth, error } = state;
 	const { cartState, toggleDrawer } = useCartDataContext();
 	const { isCartOpen, isMenuOpen, cartItems, cartItemCount, cartItemsTotal } =
 		cartState;
+	const { allProducts } = useProductContext();
+
 	useEffect(() => {
 		const fetchCurrentUser = async () => {
 			const user = await asyncCurrentLoggedInUser();
@@ -26,10 +33,14 @@ const MainLayout: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		// console.log(currentUser);
-		// console.log(user);
-		// console.log(isAuth);
-	}, [user, isAuth]);
+		const showToastMessage = (error: any) => {
+			toast.success(error);
+			setError(null);
+		};
+		if (error) {
+			showToastMessage(error);
+		}
+	}, [error]);
 
 	useEffect(() => {
 		setMount(true);
@@ -40,7 +51,7 @@ const MainLayout: React.FC = () => {
 			<div className="w-full">
 				<CssBaseline />
 				<NavBar />
-				<Outlet />
+				<Outlet context={{ allProducts }} />
 				<CartSidebar
 					isOpen={isCartOpen}
 					toggleDrawer={toggleDrawer}

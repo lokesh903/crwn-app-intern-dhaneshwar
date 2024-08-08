@@ -1,41 +1,41 @@
-import React from 'react';
-import { Grid } from '@mui/material';
-import { ProductCard, SubHeading } from '../../components';
-import { ProductsContainer } from '../../containers';
+import React, { useEffect, useState } from 'react';
+import { useOutletContext, useParams } from 'react-router-dom';
+import { BigHeading, ProductCard, SubHeading } from '../../components';
+import { ProductGridContainer, ProductsContainer } from '../../containers';
+import { ProductContextValue, ProductTypeValue } from '../../utils/types/types';
 
-interface Item {
-	id: number;
-	name: string;
-	imageUrl: string;
-	price: number;
-}
+const CategoryPreview: React.FC = () => {
+	const { categoryName } = useParams<{ categoryName: string | undefined }>();
+	const { allProducts } = useOutletContext<ProductContextValue>();
+	const [categoryProducts, setCategoryProducts] = useState<
+		ProductTypeValue[] | null
+	>(null);
 
-interface ProductCategory {
-	title: string;
-	items: Item[];
-}
+	useEffect(() => {
+		if (!categoryName) {
+			return;
+		}
+		const sortedCategoryProduct = allProducts.find(
+			product => product.title.toLowerCase() === categoryName.toLowerCase()
+		);
 
-interface CategoryPreviewProps {
-	title: string;
-	items: Item[];
-	allProducts: ProductCategory[];
-}
+		if (sortedCategoryProduct) {
+			setCategoryProducts(sortedCategoryProduct.items);
+		} else {
+			setCategoryProducts([]);
+		}
+	}, [categoryName, allProducts]);
 
-const CategoryPreview: React.FC<CategoryPreviewProps> = ({ title, items }) => {
 	return (
 		<>
+			<BigHeading>Sorted Category Wise Product</BigHeading>
 			<ProductsContainer sx={{}}>
-				<SubHeading>{title?.toLocaleUpperCase()}</SubHeading>
-				<Grid
-					container
-					spacing={{ xs: 3, md: 3 }}
-					columns={{ xs: 12, sm: 8, md: 12 }}
-					// sx={{ mt: { xs: 6, sm: 6, md: 6 } }}
-				>
-					{items?.map((product: Item) => (
+				<SubHeading>{categoryName?.toUpperCase()}</SubHeading>
+				<ProductGridContainer>
+					{categoryProducts?.map(product => (
 						<ProductCard key={product.id} product={product} />
 					))}
-				</Grid>
+				</ProductGridContainer>
 			</ProductsContainer>
 		</>
 	);

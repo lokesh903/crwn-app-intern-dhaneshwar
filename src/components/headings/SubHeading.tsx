@@ -21,7 +21,7 @@ const SubHeading: React.FC<BigHeadingProps> = ({ children, sx, ...props }) => {
 					pt: { xs: 2, sm: 4, md: 3 },
 					pb: { xs: 2, sm: 4, md: 3 },
 					m: 0,
-					textAlign: 'start',
+					textAlign: 'center',
 					width: '100%',
 					fontWeight: 900,
 					// pb: theme => `calc(${theme.spacing(1)} + 6px)`,

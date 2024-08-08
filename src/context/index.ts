@@ -14,7 +14,7 @@ import {
 } from './Product.Context';
 
 /* ------------ CART CONTEXT--------- */
-import { CartDataProvider, useCartDataContext } from './cart/Cart.Context';
+import { CartDataProvider, useCartDataContext } from './Cart.Context';
 
 export {
 	ThemeContextProvider,

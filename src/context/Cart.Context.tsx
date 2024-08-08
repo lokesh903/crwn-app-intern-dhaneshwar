@@ -6,7 +6,6 @@ import React, {
 	Dispatch,
 	ReactNode,
 } from 'react';
-import { CartItems } from '../../components';
 
 interface CartItem {
 	id: number;

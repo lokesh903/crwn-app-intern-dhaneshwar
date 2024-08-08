@@ -9,6 +9,7 @@ import Stack from '@mui/joy/Stack';
 import { Link, useNavigate } from 'react-router-dom';
 import { asyncSignInUserWithEmailAndPassword } from '../../utils/config/FirebaseAuthActions';
 import { useUserDataContext } from '../../context';
+import { toast } from 'react-toastify';
 
 interface FormElements extends HTMLFormControlsCollection {
 	email: HTMLInputElement;
@@ -29,7 +30,9 @@ const defaultFormFields: defaultFormFieldsValue = {
 
 const SingInAuthForm: React.FC = () => {
 	const navigate = useNavigate();
-	const { setCurrentUser } = useUserDataContext();
+	const { setCurrentUser, setError, state } = useUserDataContext();
+	const { error } = state;
+
 	const [formDetails, setFormDetails] =
 		React.useState<defaultFormFieldsValue>(defaultFormFields);
 
@@ -44,17 +47,17 @@ const SingInAuthForm: React.FC = () => {
 				email,
 				password
 			);
-			// console.log(user);
 			setCurrentUser(user);
 			setFormDetails({
 				email: '',
 				password: '',
 			});
 			if (user) {
-				navigate('/shop');
+				navigate('/');
 			}
-		} catch (error) {
-			console.error(error);
+		} catch (error: any) {
+			toast.error(error.message);
+			// console.error(error?.message);
 		}
 	};
 	return (
@@ -62,7 +65,7 @@ const SingInAuthForm: React.FC = () => {
 			<FormControl required>
 				<FormLabel>Email</FormLabel>
 				<Input
-					type="email"
+					type="email"	
 					name="email"
 					autoComplete="email"
 					onChange={handleOnchange}

@@ -4,19 +4,16 @@ export interface CommonProp {
 	children: React.ReactNode;
 	sx?: SxProps<Theme>;
 }
-
 export interface ProductTypeValue {
 	id: number;
 	name: string;
 	imageUrl: string;
 	price: number;
 }
-
 export interface ProductTypeParent {
 	title: string;
 	items: ProductTypeValue[];
 }
-
 export interface ProductContextValue {
 	allProducts: ProductTypeParent[];
 }
