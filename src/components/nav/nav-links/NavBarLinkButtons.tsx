@@ -33,13 +33,17 @@ const NavBarLinkButtons: React.FC = () => {
 				}}
 			>
 				<Link to="/shop/all-products">
-					<CustomNavButton endIcon={<ShoppingCartIcon fontSize="small" />}>
+					<CustomNavButton
+						sx={{ display: { xs: 'none', md: 'flex' } }}
+						endIcon={<ShoppingCartIcon fontSize="small" />}
+					>
 						{' '}
 						Shop
 					</CustomNavButton>
 				</Link>
 				{isAuth ? (
 					<CustomNavButton
+						sx={{ display: { xs: 'none', md: 'flex' } }}
 						onClick={handleLogout}
 						endIcon={<LogoutIcon fontSize="small" />}
 					>
@@ -48,7 +52,10 @@ const NavBarLinkButtons: React.FC = () => {
 					</CustomNavButton>
 				) : (
 					<Link to="/authentication">
-						<CustomNavButton endIcon={<AccountCircleIcon fontSize="small" />}>
+						<CustomNavButton
+							sx={{ display: { xs: 'none', md: 'flex' } }}
+							endIcon={<AccountCircleIcon fontSize="small" />}
+						>
 							{' '}
 							Sign In
 						</CustomNavButton>

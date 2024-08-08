@@ -1,3 +1,5 @@
 import CustomNavButton from './CustomNavButton';
+import AddCartButton from './AddCartButton';
+import CartIconButton from './CartIconButton';
 
-export { CustomNavButton };
+export { CustomNavButton, AddCartButton, CartIconButton };

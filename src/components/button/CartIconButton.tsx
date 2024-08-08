@@ -1,19 +1,21 @@
 import React from 'react';
-import Button, { ButtonProps } from '@mui/material/Button';
-import { SxProps, Theme } from '@mui/material';
+import ShoppingBagTwoToneIcon from '@mui/icons-material/ShoppingBagTwoTone';
+import { Button, SxProps, Theme } from '@mui/material';
 
-interface CustomButtonProps extends ButtonProps {
-	endIcon?: React.ReactNode;
-	startIcon?: React.ReactNode;
-	children: React.ReactNode;
+interface CommonProp {
 	sx?: SxProps<Theme>;
+	children?: React.ReactNode;
 }
-
-const CustomNavButton: React.FC<CustomButtonProps> = ({
-	endIcon,
-	startIcon,
-	children,
+interface CartIconProps extends CommonProp {
+	toggleCart: (
+		type: 'cart' | 'menu',
+		open: boolean
+	) => (event: React.KeyboardEvent | React.MouseEvent) => void;
+}
+const CartIconButton: React.FC<CartIconProps> = ({
+	toggleCart,
 	sx,
+	children,
 	...props
 }) => {
 	return (
@@ -30,6 +32,8 @@ const CustomNavButton: React.FC<CustomButtonProps> = ({
 					borderRadius: 25,
 					px: 2,
 					py: 0.8,
+					ml: { xs: 0, sm: 0, md: 1 },
+					mr: { xs: 0, sm: 0, md: 1 },
 					whiteSpace: 'nowrap',
 					width: '100%',
 					'&:hover': {
@@ -40,13 +44,13 @@ const CustomNavButton: React.FC<CustomButtonProps> = ({
 				...(Array.isArray(sx) ? sx : [sx]),
 			]}
 			variant="contained"
-			endIcon={endIcon}
-			startIcon={startIcon}
+			startIcon={<ShoppingBagTwoToneIcon fontSize="large" />}
 			{...props}
+			onClick={toggleCart('cart', true)}
 		>
 			{children}
 		</Button>
 	);
 };
 
-export default CustomNavButton;
+export default CartIconButton;

@@ -8,7 +8,6 @@ export const useColorTheme = () => {
 		const storedTheme = localStorage.getItem('theme') as PaletteMode;
 		return storedTheme || 'dark';
 	});
-
 	const toggleColorMode = () => {
 		setMode(prevMode => (prevMode === 'dark' ? 'light' : 'dark'));
 	};
@@ -22,18 +21,6 @@ export const useColorTheme = () => {
 		() => createTheme(getDesignTokens(mode)),
 		[mode]
 	);
-
-	// const modifiedTheme = React.useMemo(
-	// 	() =>
-	// 		createTheme({
-	// 			...theme,
-	// 			palette: {
-	// 				...theme.palette,
-	// 				mode,
-	// 			},
-	// 		}),
-	// 	[mode]
-	// );
 
 	return {
 		theme: modifiedTheme,

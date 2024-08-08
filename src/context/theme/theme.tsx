@@ -6,8 +6,6 @@ const theme = {
 		primary: amber,
 	},
 };
-// const primary = grey[50];
-// const primar= red[500]; // #f44336
 export const getDesignTokens = (mode: PaletteMode) => ({
 	palette: {
 		mode,
@@ -24,6 +22,8 @@ export const getDesignTokens = (mode: PaletteMode) => ({
 					background: {
 						default: blueGrey[50],
 						paper: blueGrey[50],
+						nav: 'rgba(12, 12, 12, 0.5)',
+						// nav: 'rgba(12, 12, 12, 0.4)',
 					},
 					text: {
 						primary: 'rgb(0,0,0)',
@@ -43,6 +43,7 @@ export const getDesignTokens = (mode: PaletteMode) => ({
 					background: {
 						default: '#101014de',
 						paper: blueGrey[700],
+						nav: 'rgba(255, 255, 255, 0.50)',
 					},
 					text: {
 						primary: '#fff',

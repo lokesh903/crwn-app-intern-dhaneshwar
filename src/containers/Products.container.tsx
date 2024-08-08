@@ -1,13 +1,9 @@
 import React from 'react';
 import Container from '@mui/material/Container';
-import { SxProps, Theme } from '@mui/material';
+import { CommonProp } from '../utils/types/types';
 
-interface CommanPropsValue {
-	children: React.ReactNode;
-	sx: SxProps<Theme>;
-}
 
-const ProductsContainer: React.FC<CommanPropsValue> = ({
+const ProductsContainer: React.FC<CommonProp> = ({
 	children,
 	sx,
 	...props

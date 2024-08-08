@@ -18,8 +18,8 @@ const BigHeading: React.FC<BigHeadingProps> = ({ children, sx, ...props }) => {
 				{
 					// position: 'relative',
 					// p: { xs: 4, sm: 4, md: 4 },	
-					pt: { xs: 2, sm: 4, md: 3 },	
-					pb: { xs: 2, sm: 4, md: 3 },
+					py: { xs: 2, sm: 4, md: 3 },	
+					// pb: { xs: 2, sm: 4, md: 3 },
 					m: 0,
 					textAlign: 'center',
 					width: '100%',

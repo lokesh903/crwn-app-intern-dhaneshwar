@@ -7,7 +7,6 @@ type ThemeContextType = {
 	toggleColorMode: () => void;
 	theme: Theme;
 };
-
 export const ThemeContext = createContext<ThemeContextType>({
 	mode: 'dark',
 	toggleColorMode: () => {},
@@ -16,12 +15,6 @@ export const ThemeContext = createContext<ThemeContextType>({
 
 export const ThemeContextProvider: FC<PropsWithChildren> = ({ children }) => {
 	const value = useColorTheme();
-	// useEffect(() => {
-	// 	localStorage.setItem('mode', value.mode);
-	// }, []);
-	// console.log(value.mode);
-	// console.log(value);
-
 	return (
 		<ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 	);

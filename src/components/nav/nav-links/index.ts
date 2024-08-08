@@ -1,4 +1,4 @@
 import NavBarLinkButtons from './NavBarLinkButtons';
-import CartIcon from './CartIcon';
+import MenuIcon from './MenuIcon';
 
-export { NavBarLinkButtons, CartIcon };
+export { NavBarLinkButtons, MenuIcon };

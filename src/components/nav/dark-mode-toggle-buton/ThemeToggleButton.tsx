@@ -8,7 +8,10 @@ const ThemeToggleButton = () => {
 	const { mode, toggleColorMode } = useThemeContext();
 
 	return (
-		<CustomNavButton onClick={toggleColorMode} sx={{ position: 'relative' }}>
+		<CustomNavButton
+			onClick={toggleColorMode}
+			sx={{ position: 'relative', display: { xs: 'none', md: 'flex' } }}
+		>
 			<Box
 				sx={{
 					position: 'absolute',
@@ -18,6 +21,7 @@ const ThemeToggleButton = () => {
 					borderRadius: 25,
 					px: { xs: '10px', md: '8px' },
 					fontSize: { xs: '10px', md: '10px' },
+
 					color: 'text.primary',
 					'&:hover': {
 						color: 'text.hover',

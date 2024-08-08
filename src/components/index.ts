@@ -1,15 +1,17 @@
-import { CustomNavButton } from './button';
-import { NavBarLinkButtons, CartIcon, ThemeToggleButton } from './nav';
+import { CustomNavButton, CartIconButton } from './button';
+import { NavBarLinkButtons, ThemeToggleButton } from './nav';
 import { ProductCard } from './product';
 import { CategoriesLinkBtn } from './home';
+import CartItems from './cart/CartItems';
 
 export {
 	ThemeToggleButton,
 	NavBarLinkButtons,
 	CustomNavButton,
-	CartIcon,
+	CartIconButton,
 	ProductCard,
 	CategoriesLinkBtn,
+	CartItems,
 };
 
 import BigHeading from './headings/BigHeading';

@@ -2,7 +2,7 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 import { useThemeContext } from './context/theme/ThemeContextProvider';
-import { AllProducts, AuthenticationPage, HomePage } from './pages';
+import { AllProducts, AuthenticationPage, CartCheckoutPage, HomePage } from './pages';
 import { MainLayout, ShopLayout } from './layouts';
 
 const App: React.FC = () => {
@@ -17,6 +17,7 @@ const App: React.FC = () => {
 							<Route path="all-products" element={<AllProducts />} />
 							<Route path=":categoryName" element={<AllProducts />} />
 						</Route>
+						<Route path="/shop/cart-checkout" element={<CartCheckoutPage />} />
 						<Route path="/authentication" element={<AuthenticationPage />} />
 					</Route>
 				</Routes>

@@ -3,17 +3,18 @@ import NavBar from '../pages/navigation/NavBar';
 import { CssBaseline } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { asyncCurrentLoggedInUser } from '../utils/config/FirebaseAuthActions';
-import { useUserDataContext } from '../context';
+import { useCartDataContext, useUserDataContext } from '../context';
+import { CartSidebar } from '../components/cart/CartSideBar.test';
+import { CartItems } from '../components';
 // import { useProductContext } from '../context';
 
 const MainLayout: React.FC = () => {
 	const [mount, setMount] = useState<boolean>(false);
 	const { state, setCurrentUser } = useUserDataContext();
 	const { user, isAuth } = state;
-	// const { allProducts } = useProductContext();
-	// console.log(state);
-	// console.log(allProducts);
-
+	const { cartState, toggleDrawer } = useCartDataContext();
+	const { isCartOpen, isMenuOpen, cartItems, cartItemCount, cartItemsTotal } =
+		cartState;
 	useEffect(() => {
 		const fetchCurrentUser = async () => {
 			const user = await asyncCurrentLoggedInUser();
@@ -40,6 +41,24 @@ const MainLayout: React.FC = () => {
 				<CssBaseline />
 				<NavBar />
 				<Outlet />
+				<CartSidebar
+					isOpen={isCartOpen}
+					toggleDrawer={toggleDrawer}
+					type="cart"
+				>
+					<CartItems
+						cartItems={cartItems}
+						cartItemCount={cartItemCount}
+						cartItemsTotal={cartItemsTotal}
+					/>
+				</CartSidebar>
+				<CartSidebar
+					isOpen={isMenuOpen}
+					toggleDrawer={toggleDrawer}
+					type="menu"
+				>
+					Menu itmenelssss
+				</CartSidebar>
 			</div>
 		</>
 	);

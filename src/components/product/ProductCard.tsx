@@ -2,9 +2,9 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import useTheme from '@mui/material/styles/useTheme';
 import Stack from '@mui/material/Stack';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Grid } from '@mui/material';
 import { ImageSrc, ImageButton, Image, ImageBackdrop } from './product.style';
+import { AddCartButton } from '../button';
 
 interface Item {
 	id: number;
@@ -53,7 +53,7 @@ const ProductCard = React.memo(({ product }: { product: Item }) => {
 						opacity: 0.5,
 						height: 'fit-content',
 					}}
-				>	
+				>
 					<Stack
 						spacing={-1}
 						sx={{
@@ -96,22 +96,7 @@ const ProductCard = React.memo(({ product }: { product: Item }) => {
 							${product?.price}
 						</Typography>
 					</Stack>
-
-					<Typography
-						sx={{
-							color: 'primary.main',
-							'&:hover': {
-								color: 'text.hover',
-								bgcolor: 'text.secondary',
-								borderRadius: 2,
-								// width: '100%',
-								textAlign: 'end',
-							},
-							p: 0.4,
-						}}
-					>
-						<AddShoppingCartIcon fontSize="medium" />
-					</Typography>
+					<AddCartButton product={product} />
 				</Image>
 			</ImageButton>
 		</Grid>
