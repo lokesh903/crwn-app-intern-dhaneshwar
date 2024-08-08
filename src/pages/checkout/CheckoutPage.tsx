@@ -1,30 +1,34 @@
-import React, { useEffect,  } from 'react';
-import { PageContainer,  } from '../../containers';
+import React, { useEffect } from 'react';
+import { PageContainer, ProductsContainer } from '../../containers';
 import { BigHeading, CartItems } from '../../components';
 import { Grid } from '@mui/material';
 import { useCartDataContext } from '../../context';
+import CartChekout from '../../components/cart/CartCheckout';
 
 const CartCheckoutPage: React.FC = () => {
 	const { cartState } = useCartDataContext();
-	const { cartItemCount, cartItemsTotal, cartItems } = cartState;
-	useEffect(() => {}, []);
+	// const { cartItemCount, cartItemsTotal, cartItems } = cartState;
+	// useEffect(() => {}, []);
 
 	return (
 		<>
 			<PageContainer sx={{}}>
-				<BigHeading>Checkout</BigHeading>
-				<Grid
-					container
-					spacing={{ xs: 3, md: 3 }}
-					columns={{ xs: 12, sm: 8, md: 12 }}
-				>
+				<BigHeading>Checkout Page</BigHeading>
+				<ProductsContainer sx={{ pb: 2 }}>
+					{/* <Grid
+						container
+						spacing={{ xs: 3, md: 3 }}
+						columns={{ xs: 12, sm: 8, md: 12 }}
+					> */}
+					<CartChekout />
 
-					<CartItems
+					{/* <CartItems
 						cartItems={cartItems}
 						cartItemCount={cartItemCount}
 						cartItemsTotal={cartItemsTotal}
-					/>
-				</Grid>
+						/> */}
+					{/* </Grid> */}
+				</ProductsContainer>
 			</PageContainer>
 		</>
 	);

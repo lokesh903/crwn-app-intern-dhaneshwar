@@ -30,8 +30,7 @@ const defaultFormFields: defaultFormFieldsValue = {
 
 const SingInAuthForm: React.FC = () => {
 	const navigate = useNavigate();
-	const { setCurrentUser, setError, state } = useUserDataContext();
-	const { error } = state;
+	const { setCurrentUser } = useUserDataContext();
 
 	const [formDetails, setFormDetails] =
 		React.useState<defaultFormFieldsValue>(defaultFormFields);
@@ -65,7 +64,7 @@ const SingInAuthForm: React.FC = () => {
 			<FormControl required>
 				<FormLabel>Email</FormLabel>
 				<Input
-					type="email"	
+					type="email"
 					name="email"
 					autoComplete="email"
 					onChange={handleOnchange}

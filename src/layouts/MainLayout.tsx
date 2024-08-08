@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 const MainLayout: React.FC = () => {
 	const [mount, setMount] = useState<boolean>(false);
 	const { state, setCurrentUser, setError } = useUserDataContext();
-	const { user, isAuth, error } = state;
+	const { error } = state;
 	const { cartState, toggleDrawer } = useCartDataContext();
 	const { isCartOpen, isMenuOpen, cartItems, cartItemCount, cartItemsTotal } =
 		cartState;

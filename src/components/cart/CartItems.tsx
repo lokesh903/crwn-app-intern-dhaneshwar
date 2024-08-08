@@ -67,6 +67,7 @@ const CartItems: React.FC<CartItemsProps> = ({
 				<Link to="/shop/cart-checkout">
 					<CustomNavButton
 						sx={{
+							fontSize: { xs: 12, md: 20 },
 							width: '100%',
 							bgcolor: 'rgba(0, 128, 0, 0.5)',
 							'&:hover': { bgcolor: 'rgba(0, 128, 0, 0.7)' },
@@ -74,7 +75,7 @@ const CartItems: React.FC<CartItemsProps> = ({
 					>
 						{' '}
 						Go To Checkout &nbsp;
-						<ShoppingCartCheckoutIcon fontSize="large" /> &nbsp;₹&nbsp;
+						<ShoppingCartCheckoutIcon fontSize="medium" /> &nbsp;₹&nbsp;
 						{cartItemsTotal}
 					</CustomNavButton>
 				</Link>

@@ -21,7 +21,7 @@ const ProductCard = React.memo(({ product }: { product: Item }) => {
 			item={true}
 			xs={6}
 			sm={4}
-			md={2}
+			md={	2}
 			key={product.id}
 			sx={{
 				mb: { xs: 6, md: 5 },

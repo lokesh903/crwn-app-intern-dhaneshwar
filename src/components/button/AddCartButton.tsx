@@ -1,7 +1,9 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useCartDataContext } from '../../context';
+import { toast } from 'react-toastify';
+import { Button } from '@mui/material';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 interface Item {
 	id: number;
 	name: string;
@@ -12,25 +14,46 @@ interface AddCartButtonProps {
 	product: Item;
 }
 const AddCartButton: React.FC<AddCartButtonProps> = ({ product }) => {
-	const { handleAddToCart } = useCartDataContext();
+	const { handleAddToCart, cartState } = useCartDataContext();
+	const { cartItems } = cartState;
+
+	const existItem = cartItems.find(pro => pro.id === product.id);
+
+	const handleClick = () => {
+		if (!existItem) {
+			handleAddToCart(product);
+			toast.success('Product Added to Cart', {
+				position: 'bottom-right',
+			});
+		} else {
+			toast.info('Product Already Added', {
+				position: 'bottom-right',
+			});
+		}
+	};
+		
 	return (
-		<Typography
-			variant="button"
-			onClick={() => handleAddToCart(product)}
+		<Button
+			onClick={() => handleClick()}
 			sx={{
-				color: 'primary.main',
+				color: existItem ? 'text.disabled' : 'primary.main',
+				cursor: existItem ? 'not-allowed' : 'pointer',
 				'&:hover': {
-					color: 'text.hover',
-					bgcolor: 'text.secondary',
+					color: !existItem ? 'text.hover' : 'text.disabled',
+					bgcolor: !existItem ? 'text.secondary' : 'inherit',
 					borderRadius: 2,
-					// width: '100%',
 					textAlign: 'end',
 				},
 				p: 0.4,
 			}}
+			disabled={!!existItem}
 		>
-			<AddShoppingCartIcon fontSize="medium" />
-		</Typography>
+			{existItem ? (
+				<ShoppingBasketIcon />
+			) : (
+				<AddShoppingCartIcon fontSize="medium" />
+			)}
+		</Button>
 	);
 };
 

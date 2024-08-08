@@ -5,7 +5,9 @@ import React, {
 	useMemo,
 	Dispatch,
 	ReactNode,
+	useEffect,
 } from 'react';
+import { json } from 'react-router-dom';
 
 interface CartItem {
 	id: number;
@@ -69,13 +71,13 @@ const reducer = (cartState: CartState, action: Action): CartState => {
 			if (exisitingCartItem) {
 				return {
 					...cartState,
-					cartItems: cartState.cartItems.map(item =>
-						item.id === action.payload.id
-							? { ...item, quantity: item.quantity + 1 }
-							: item
-					),
-					// cartItemCount: cartState.cartItemCount + 1,
-					cartItemsTotal: cartState.cartItemsTotal + action.payload.price,
+					// cartItems: cartState.cartItems.map(item =>
+					// 	item.id === action.payload.id
+					// 		? { ...item, quantity: item.quantity + 1 }
+					// 		: item
+					// ),
+					// // cartItemCount: cartState.cartItemCount + 1,
+					// cartItemsTotal: cartState.cartItemsTotal + action.payload.price,
 				};
 			} else {
 				return {
@@ -165,8 +167,10 @@ export const CartDataContext = createContext<CartContextDataValue | undefined>(
 );
 
 export const CartDataProvider: React.FC<CartProviderProps> = ({ children }) => {
-	const [cartState, dispatch] = useReducer(reducer, initialState);
-
+	const [cartState, dispatch] = useReducer(reducer, initialState, initial => {
+		const storedState = localStorage.getItem('cartState');
+		return storedState ? JSON.parse(storedState) : initial;
+	});
 	const toggleDrawer =
 		(type: 'cart' | 'menu', open: boolean) =>
 		(event: React.KeyboardEvent | React.MouseEvent) => {
@@ -196,6 +200,10 @@ export const CartDataProvider: React.FC<CartProviderProps> = ({ children }) => {
 	const handleDecrementItemQuantity = (product: ProductItem) => {
 		dispatch({ type: 'DECREMENT_ITEM_IN_CART', payload: product.id });
 	};
+
+	useEffect(() => {
+		localStorage.setItem('cartState', JSON.stringify(cartState));
+	}, [cartState]);
 
 	const values = useMemo(() => {
 		return {
