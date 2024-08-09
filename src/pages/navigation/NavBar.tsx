@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { Link } from 'react-router-dom';
 import {
+	AppLogo,
 	CartIconButton,
 	NavBarLinkButtons,
 	ThemeToggleButton,
@@ -16,8 +16,7 @@ const NavBar: React.FC = () => {
 
 	return (
 		<NavigationContainer>
-			<Link to="/">Logo</Link>
-			<div>Search Bar</div>
+			<AppLogo />
 			<Box
 				sx={{
 					display: 'flex',

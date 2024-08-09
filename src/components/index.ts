@@ -3,8 +3,10 @@ import { NavBarLinkButtons, ThemeToggleButton } from './nav';
 import { ProductCard } from './product';
 import { CategoriesLinkBtn } from './home';
 import CartItems from './cart/CartItems';
+import { AppLogo } from './nav';
 
 export {
+	AppLogo,
 	ThemeToggleButton,
 	NavBarLinkButtons,
 	CustomNavButton,

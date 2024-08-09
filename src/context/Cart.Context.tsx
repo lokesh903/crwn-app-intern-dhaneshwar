@@ -7,7 +7,6 @@ import React, {
 	ReactNode,
 	useEffect,
 } from 'react';
-import { json } from 'react-router-dom';
 
 interface CartItem {
 	id: number;

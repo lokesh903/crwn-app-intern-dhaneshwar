@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { PageContainer, ProductsContainer } from '../../containers';
-import { BigHeading, CartItems } from '../../components';
-import { Grid } from '@mui/material';
-import { useCartDataContext } from '../../context';
+import { BigHeading } from '../../components';
+// import { Grid } from '@mui/material';
+// import { useCartDataContext } from '../../context';
 import CartChekout from '../../components/cart/CartCheckout';
 
 const CartCheckoutPage: React.FC = () => {
-	const { cartState } = useCartDataContext();
+	// const { cartState } = useCartDataContext();
 	// const { cartItemCount, cartItemsTotal, cartItems } = cartState;
-	// useEffect(() => {}, []);
 
 	return (
 		<>
