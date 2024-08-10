@@ -14,7 +14,13 @@ import {
 } from './Product.Context';
 
 /* ------------ CART CONTEXT--------- */
-import { CartDataProvider, useCartDataContext } from './Cart.Context';
+// import { CartDataProvider, useCartDataContext } from './Cart.Context';
+
+
+/* ------------ Sidebar CONTEXT--------- */
+import { SideDrawerDataContext,SideDrawerDataProvider } from './SideBarDrawar.context';
+
+
 
 export {
 	ThemeContextProvider,
@@ -23,6 +29,8 @@ export {
 	useUserDataContext,
 	ProductsDataContextProvider,
 	useProductContext,
-	CartDataProvider,
-	useCartDataContext,
+	// CartDataProvider,
+	// useCartDataContext,
+	SideDrawerDataProvider,
+	SideDrawerDataContext,
 };

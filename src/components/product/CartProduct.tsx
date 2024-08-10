@@ -9,7 +9,13 @@ import Typography from '@mui/material/Typography';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useCartDataContext } from '../../context';
+import { useDispatch } from 'react-redux';
+import {
+	asyncDecrementItemInCart,
+	asyncIncrementItemInCart,
+	asyncRemoveItemFromCart,
+} from '../../utils/store/actions/cartAction';
+// import { useCartDataContext } from '../../context';
 
 interface Item {
 	id: number;
@@ -20,11 +26,29 @@ interface Item {
 }
 const CartProduct = React.memo(({ product }: { product: Item }) => {
 	// const theme = useTheme();
-	const {
-		handleRemoveItemFromCart,
-		handleIncrementItemQuantity,
-		handleDecrementItemQuantity,
-	} = useCartDataContext();
+	/* ---- Context Code ---- */
+	// const {
+	// 	handleRemoveItemFromCart,
+	// 	handleIncrementItemQuantity,
+	// 	handleDecrementItemQuantity,
+	// } = useCartDataContext();
+
+	/* ---- Redux Code ---- */
+	const dispatch = useDispatch();
+	const handleIncrementBtn = () => {
+		dispatch(asyncIncrementItemInCart(product?.id));
+		// handleIncrementItemQuantity(product);
+	};
+	const handleDecrementBtn = () => {
+		dispatch(asyncDecrementItemInCart(product?.id));
+
+		// handleDecrementItemQuantity(product);
+	};
+	const handleRemoveItemFromCartBtn = () => {
+		dispatch(asyncRemoveItemFromCart(product?.id));
+
+		// handleRemoveItemFromCart(product);
+	};
 
 	return (
 		<Card
@@ -60,13 +84,13 @@ const CartProduct = React.memo(({ product }: { product: Item }) => {
 				</CardContent>
 			</Box>
 			<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-				<IconButton onClick={() => handleIncrementItemQuantity(product)}>
+				<IconButton onClick={handleIncrementBtn}>
 					<ArrowDropUpIcon />
 				</IconButton>
-				<IconButton onClick={() => handleDecrementItemQuantity(product)}>
+				<IconButton onClick={handleDecrementBtn}>
 					<ArrowDropDownIcon />
 				</IconButton>
-				<IconButton onClick={() => handleRemoveItemFromCart(product)}>
+				<IconButton onClick={handleRemoveItemFromCartBtn}>
 					<ClearIcon sx={{ height: 30, width: 30 }} />
 				</IconButton>
 			</Box>

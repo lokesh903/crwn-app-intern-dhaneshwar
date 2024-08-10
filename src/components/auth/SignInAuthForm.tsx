@@ -10,6 +10,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { asyncSignInUserWithEmailAndPassword } from '../../utils/config/FirebaseAuthActions';
 import { useUserDataContext } from '../../context';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { asyncAddUser } from '../../utils/store/actions/action';
 
 interface FormElements extends HTMLFormControlsCollection {
 	email: HTMLInputElement;
@@ -30,7 +32,8 @@ const defaultFormFields: defaultFormFieldsValue = {
 
 const SingInAuthForm: React.FC = () => {
 	const navigate = useNavigate();
-	const { setCurrentUser } = useUserDataContext();
+	const dispatch = useDispatch();
+	// const { setCurrentUser } = useUserDataContext();
 
 	const [formDetails, setFormDetails] =
 		React.useState<defaultFormFieldsValue>(defaultFormFields);
@@ -46,7 +49,12 @@ const SingInAuthForm: React.FC = () => {
 				email,
 				password
 			);
-			setCurrentUser(user);
+			console.log(user);
+			console.log(typeof user);
+			
+			// setCurrentUser(user);
+			dispatch(asyncAddUser(user));
+
 			setFormDetails({
 				email: '',
 				password: '',

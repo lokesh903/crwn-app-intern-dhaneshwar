@@ -8,7 +8,7 @@ import {
 	writeBatch,
 } from 'firebase/firestore';
 import { db } from './Firebase';
-import { SHOP_DATA_PRODUCTS } from '../store/ClothingData';
+import { SHOP_DATA_PRODUCTS } from './ClothingData';
 
 const PRODUCTS_DATA = SHOP_DATA_PRODUCTS;
 

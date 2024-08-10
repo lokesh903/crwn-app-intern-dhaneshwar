@@ -2,8 +2,8 @@ import { CustomNavButton, CartIconButton } from './button';
 import { NavBarLinkButtons, ThemeToggleButton } from './nav';
 import { ProductCard } from './product';
 import { CategoriesLinkBtn } from './home';
-import CartItems from './cart/CartItems';
 import { AppLogo } from './nav';
+import { CartItems, CartCheckout, CartSidebar } from './cart';
 
 export {
 	AppLogo,
@@ -14,6 +14,8 @@ export {
 	ProductCard,
 	CategoriesLinkBtn,
 	CartItems,
+	CartCheckout,
+	CartSidebar,
 };
 
 import BigHeading from './headings/BigHeading';

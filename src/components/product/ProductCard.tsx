@@ -5,23 +5,40 @@ import Stack from '@mui/material/Stack';
 import { Grid } from '@mui/material';
 import { ImageSrc, ImageButton, Image, ImageBackdrop } from './product.style';
 import { AddCartButton } from '../button';
-
-interface Item {
-	id: number;
-	name: string;
-	imageUrl: string;
-	price: number;
-}
-const ProductCard = React.memo(({ product }: { product: Item }) => {
+// import { useCartDataContext } from '../../context';
+import { toast } from 'react-toastify';
+import { ProductTypeValue, RootState } from '../../utils/types/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncAddItemToCart } from '../../utils/store/actions/cartAction';
+const ProductCard = React.memo(({ product }: { product: ProductTypeValue }) => {
 	const theme = useTheme();
-	// console.log(product);
+	const dispatch = useDispatch();
+	const { cartItems } = useSelector((state: RootState) => state.cart);
+
+	/* ---- Context Cart Product Code  */
+	// const { handleAddToCart, cartState } = useCartDataContext();
+	// const { cartItems } = cartState;
+	const existItem = cartItems.find(pro => pro.id === product.id);
+	const handleClick = () => {
+		if (!existItem) {
+			// handleAddToCart(product);
+			dispatch(asyncAddItemToCart(product));
+			toast.success('Product Added to Cart', {
+				position: 'bottom-right',
+			});
+		} else {
+			toast.info('Product Already Added', {
+				position: 'bottom-right',
+			});
+		}
+	};
 
 	return (
 		<Grid
 			item={true}
 			xs={6}
 			sm={4}
-			md={	2}
+			md={2}
 			key={product.id}
 			sx={{
 				mb: { xs: 6, md: 5 },
@@ -35,7 +52,7 @@ const ProductCard = React.memo(({ product }: { product: Item }) => {
 			}}
 		>
 			<ImageButton
-				focusRipple
+				// focusRipple
 				sx={{
 					width: '100%',
 					height: {
@@ -96,7 +113,7 @@ const ProductCard = React.memo(({ product }: { product: Item }) => {
 							${product?.price}
 						</Typography>
 					</Stack>
-					<AddCartButton product={product} />
+					<AddCartButton existItem={existItem} handleClick={handleClick} />
 				</Image>
 			</ImageButton>
 		</Grid>

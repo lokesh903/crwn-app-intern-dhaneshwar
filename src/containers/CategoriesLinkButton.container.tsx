@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import React from 'react';
-import { PRODUCT_CATEGORIES } from '../utils/store/ClothingData';
+import { PRODUCT_CATEGORIES } from '../utils/config/ClothingData';
 import { CategoriesLinkBtn } from '../components';
 
 const categories = PRODUCT_CATEGORIES;

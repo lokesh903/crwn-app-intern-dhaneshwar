@@ -8,7 +8,6 @@ import {
 import { auth, googleProvider } from './Firebase';
 
 // --------------- Authetication Action ---------- //
-
 export const asyncCurrentLoggedInUser = () => {
 	return new Promise((resolve, reject) => {
 		onAuthStateChanged(

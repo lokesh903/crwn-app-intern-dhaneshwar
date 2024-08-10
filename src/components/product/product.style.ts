@@ -1,7 +1,7 @@
 import { experimentalStyled as styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
-export const ImageButton = styled(ButtonBase)(({ theme }) => ({
+export const ImageButton = styled('div')(({ theme }) => ({
 	position: 'relative',
 	height: 200,
 	[theme.breakpoints.down('sm')]: {

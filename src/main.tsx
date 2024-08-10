@@ -4,24 +4,35 @@ import App from './App.tsx';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import {
-	UserDataProvider,
-	ProductsDataContextProvider,
+	// UserDataProvider,
+	// ProductsDataContextProvider,
 	ThemeContextProvider,
-	CartDataProvider,
+	// CartDataProvider,
 } from './context';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import configureStore from './utils/store/store.ts';
+import { SideDrawerDataProvider } from './context/SideBarDrawar.context.tsx';
+const { store, persistor } = configureStore();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	// <React.StrictMode>
-	<ProductsDataContextProvider>
-		<UserDataProvider>
-			<CartDataProvider>
+	<Provider store={store}>
+		<PersistGate loading={null} persistor={persistor}>
+			<SideDrawerDataProvider>
+				{/* <ProductsDataContextProvider> */}
+				{/* <UserDataProvider> */}
+				{/* <CartDataProvider> */}
 				<ThemeContextProvider>
 					<BrowserRouter>
 						<App />
 					</BrowserRouter>
 				</ThemeContextProvider>
-			</CartDataProvider>
-		</UserDataProvider>
-	</ProductsDataContextProvider>
+				{/* </CartDataProvider> */}
+				{/* </UserDataProvider> */}
+				{/* </ProductsDataContextProvider> */}
+			</SideDrawerDataProvider>
+		</PersistGate>
+	</Provider>
 	// </React.StrictMode>
 );

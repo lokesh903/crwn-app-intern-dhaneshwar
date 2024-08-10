@@ -1,10 +1,13 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { PageContainer } from '../containers';
-import { useProductContext } from '../context';
+import { useSelector } from 'react-redux';
+import { RootState } from '../utils/types/types';
+// import { useProductContext } from '../context';
 
 const ShopLayout: React.FC = () => {
-	const { allProducts } = useProductContext();
+	// const { allProducts } = useProductContext();
+	const { allProducts } = useSelector((state: RootState) => state.products);
 	//   console.log(allProducts);
 
 	return (

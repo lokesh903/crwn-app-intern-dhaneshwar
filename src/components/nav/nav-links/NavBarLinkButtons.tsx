@@ -5,20 +5,25 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { asyncLogOutUser } from '../../../utils/config/FirebaseAuthActions';
-import { useUserDataContext } from '../../../context';
+// import { useUserDataContext } from '../../../context';
 import { CustomNavButton } from '../../button';
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncRemoveUser } from '../../../utils/store/actions/action';
+import { RootState } from '../../../utils/types/types';
 
 const NavBarLinkButtons: React.FC = () => {
-	const { state, dispatch } = useUserDataContext();
-	const { isAuth } = state;
+	const dispatch = useDispatch();
+	const { isAuth } = useSelector((state: RootState) => state.user);
+	// const { state, dispatch } = useUserDataContext();
+	// const { isAuth } = state;
 
 	const handleLogout = async () => {
 		try {
-			await dispatch({ type: 'REMOVE_USER' });
+			// await dispatch({ type: 'REMOVE_USER' });
 			await asyncLogOutUser();
+			dispatch(asyncRemoveUser());
 		} catch (error) {
 			console.log('logout');
-
 			console.error(error);
 		}
 	};
