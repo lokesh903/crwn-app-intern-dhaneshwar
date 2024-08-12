@@ -11,7 +11,7 @@ import { auth, googleProvider } from './Firebase';
 export const asyncCurrentLoggedInUser = () => {
 	return new Promise((resolve, reject) => {
 		onAuthStateChanged(
-			auth,
+auth,
 			user => {
 				if (user) {
 					resolve(user);
