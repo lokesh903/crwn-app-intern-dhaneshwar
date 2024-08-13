@@ -10,9 +10,9 @@ import {
 	// CartDataProvider,
 } from './context';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 import configureStore from './utils/store/store.ts';
 import { SideDrawerDataProvider } from './context/SideBarDrawar.context.tsx';
+import { PersistGate } from 'redux-persist/integration/react';
 const { store, persistor } = configureStore();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
