@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import {
-	PaymentElement,
-	Elements,
+	// PaymentElement,
+	// Elements,
 	useStripe,
 	useElements,
 	CardElement,
