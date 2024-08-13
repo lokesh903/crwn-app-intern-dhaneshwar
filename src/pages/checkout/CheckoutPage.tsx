@@ -20,7 +20,6 @@ const CartCheckoutPage: React.FC = () => {
 						columns={{ xs: 12, sm: 8, md: 12 }}
 					> */}
 					<CartChekout />
-
 					{/* <CartItems
 						cartItems={cartItems}
 						cartItemCount={cartItemCount}

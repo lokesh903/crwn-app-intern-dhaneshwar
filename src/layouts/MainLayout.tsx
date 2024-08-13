@@ -28,7 +28,15 @@ const MainLayout: React.FC = () => {
 	const { cartItems, cartItemsTotal, cartItemCount } = useSelector(
 		(state: RootState) => state.cart
 	);
-	
+	// useEffect(() => {
+	// 	fetch('/config').then(async r => {
+	// 		console.log("ok");
+			
+	// 		const { publishableKey } = await r.json();
+	// 		console.log(publishableKey);
+	// 	});
+	// }, []);
+
 	// console.log(allProducts);
 	useEffect(() => {
 		const fetchCurrentUser = async () => {
