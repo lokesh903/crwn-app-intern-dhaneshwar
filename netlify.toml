@@ -2,7 +2,7 @@
 [build]
   command = "# no build command"
   functions = "netlify/functions"
-  publish= "src"
+  publish= "public"
    [[redirects]]
    from = "/*" 
    to = "/index.html"
