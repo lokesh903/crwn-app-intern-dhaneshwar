@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -45,6 +45,10 @@ const stripePromise = loadStripe(
 	import.meta.env.VITE_APP_STRIPE_PUBLISHABLE_KEY
 );
 const CartCheckout: React.FC = () => {
+	const [checkoutForm, setCheckoutForm] = useState(false);
+	const handleCheckoutForm = () => {
+		setCheckoutForm(prev => !prev);
+	};
 	/* ----Context Api Code -------*/
 	// const {
 	// 	cartState,
@@ -59,21 +63,19 @@ const CartCheckout: React.FC = () => {
 	const { cartItems, cartItemsTotal, cartItemCount } = useSelector(
 		(state: RootState) => state.cart
 	);
-
 	const handleIncrementBtn = (product: CartItem) => {
 		dispatch(asyncIncrementItemInCart(product?.id));
 		// handleIncrementItemQuantity(product);
 	};
 	const handleDecrementBtn = (product: CartItem) => {
 		dispatch(asyncDecrementItemInCart(product?.id));
-
 		// handleDecrementItemQuantity(product);
 	};
 	const handleRemoveItemFromCartBtn = (product: CartItem) => {
 		dispatch(asyncRemoveItemFromCart(product?.id));
-
 		// handleRemoveItemFromCart(product);
 	};
+
 	return (
 		<>
 			<Box
@@ -169,35 +171,38 @@ const CartCheckout: React.FC = () => {
 					<SubHeading>No Products</SubHeading>
 				)}
 
-				<Link to="/shop/cart-checkout">
-					<CustomNavButton
-						sx={{
-							width: '100%',
-							bgcolor: 'success.light',
-							marginTop: 2,
-							'&:hover': { bgcolor: 'success.dark' },
-						}}
-					>
-						Place You Order &nbsp;
-						<PointOfSaleIcon fontSize="small" /> &nbsp;₹&nbsp;
-						{cartItemsTotal}
-					</CustomNavButton>
-				</Link>
+				{/* <Link to="/shop/cart-checkout"> */}
+				<CustomNavButton
+					onClick={handleCheckoutForm}
+					sx={{
+						width: '100%',
+						bgcolor: 'success.light',
+						marginTop: 2,
+						'&:hover': { bgcolor: 'success.dark' },
+					}}
+				>
+					Place You Order &nbsp;
+					<PointOfSaleIcon fontSize="small" /> &nbsp;₹&nbsp;
+					{cartItemsTotal}
+				</CustomNavButton>
+				{/* </Link> */}
 			</Box>
-			<Box
-				sx={{
-					bgcolor: 'background.nav',
-					color: 'white',
-					width: '60%',
-					px: 3,
-					py: 4,
-				}}
-			>
-				<Elements stripe={stripePromise}>
-					{' '}
-					<CheckoutForm />
-				</Elements>
-			</Box>
+			{checkoutForm && (
+				<Box
+					sx={{
+						bgcolor: 'background.nav',
+						color: 'white',
+						width: '60%',
+						px: 3,
+						py: 4,
+					}}
+				>
+					<Elements stripe={stripePromise}>
+						{' '}
+						<CheckoutForm setCheckoutForm={setCheckoutForm} />
+					</Elements>
+				</Box>
+			)}
 		</>
 	);
 };

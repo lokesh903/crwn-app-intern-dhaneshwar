@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import {
 	// PaymentElement,
 	// Elements,
@@ -6,21 +6,43 @@ import {
 	useElements,
 	CardElement,
 } from '@stripe/react-stripe-js';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../utils/types/types';
 import { StripeCardElement } from '@stripe/stripe-js';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { Box } from '@mui/material';
+import { asyncClearCart } from '../../utils/store/actions/cartAction';
 const ifValidCardElement = (
 	card: StripeCardElement | null
 ): card is StripeCardElement => card !== null;
-const CheckoutForm: React.FC = () => {
+
+const cardElementStyles = {
+	base: {
+		color: 'black',
+		fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+		fontSize: '16px',
+		'::placeholder': {
+			color: '#888',
+		},
+		backgroundColor: 'white',
+	},
+	invalid: {
+		color: '#dc3545',
+	},
+};
+interface CheckOutPropValue {
+	setCheckoutForm: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const CheckoutForm: React.FC<CheckOutPropValue> = ({ setCheckoutForm }) => {
+	const dispatch = useDispatch();
 	const stripe = useStripe();
 	const elements = useElements();
-
-	const { cartItemsTotal } = useSelector((state: RootState) => state.cart);
+	const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 	// const { user } = useSelector((state: RootState) => state.user);
-	// const [errorMessage, setErrorMessage] = useState<string | null>(null);
-	// const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-	console.log(cartItemsTotal);
+	// console.log(user);
+	// console.log(user.displayName);
+	const { cartItemsTotal } = useSelector((state: RootState) => state.cart);
+	// console.log(cartItemsTotal);
 
 	const paymentHandler = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -28,15 +50,12 @@ const CheckoutForm: React.FC = () => {
 		if (!stripe || !elements) {
 			return;
 		}
-
-		// setIsProcessingPayment(true);
-
+		setIsProcessingPayment(true);
 		const response = await fetch('/.netlify/functions/create-payment-intent', {
-			method: 'POST',
+			method: 'post',
 			body: JSON.stringify({ amount: cartItemsTotal * 100 }),
 		}).then(res => res.json());
-		console.log(response);
-
+		// console.log(response);
 		const {
 			paymentIntent: { client_secret },
 		} = response;
@@ -44,7 +63,6 @@ const CheckoutForm: React.FC = () => {
 		const cardDetails = elements.getElement(CardElement);
 
 		if (!ifValidCardElement(cardDetails)) return;
-
 		const paymentResult = await stripe.confirmCardPayment(client_secret, {
 			payment_method: {
 				card: cardDetails,
@@ -53,36 +71,63 @@ const CheckoutForm: React.FC = () => {
 				},
 			},
 		});
-
-		// setIsProcessingPayment(false);
-
+		// console.log(paymentResult);
+		setIsProcessingPayment(false);
 		if (paymentResult.error) {
+			console.error(paymentResult.error);
 			alert(paymentResult.error);
 		} else {
 			if (paymentResult.paymentIntent.status === 'succeeded') {
 				alert('Payment Successful');
+				setCheckoutForm(prev => !prev);
+				dispatch(asyncClearCart());
 			}
 		}
 	};
-	const handleCheck = async () => {
-		const res = await fetch('/.netlify/functions/testing').then(res =>
-			res.json()
-		);
-		console.log(res);
-
-		// responseText.innerText = JSON.stringify(res);
-	};
+	// const handleCheck = async () => {
+	// 	const res = await fetch('/.netlify/functions/testing').then(res =>
+	// 		res.json()
+	// 	);
+	// 	console.log(res);
+	// };
 
 	return (
 		<>
 			<form onSubmit={paymentHandler}>
-				<CardElement />
+				<Box
+					sx={{
+						px: 3,
+						py: 3,
+						bgcolor: 'background.paper',
+						textAlign: 'center',
+					}}
+				>
+					<CardElement options={{ style: cardElementStyles }} />
+					<LoadingButton
+						type="submit"
+						loading={isProcessingPayment}
+						loadingIndicator="Loading…"
+						variant="outlined"
+						sx={{
+							bgcolor: 'background.default',
+							color: 'primary',
+							px: 5,
+							mt: 2,
+							mb: 1,
+							'&:hover': {
+								color: 'background.default',
+								bgcolor: 'green',
+								borderRadius: 2,
+								textAlign: 'end',
+							},
+						}}
+					>
+						Pay
+					</LoadingButton>
+				</Box>
 				{/* <PaymentElement /> */}
-				<button type="submit">Pay</button>
-				{/* Show error message to your customers */}
-				{/* {errorMessage && <div>{errorMessage}</div>} */}
 			</form>
-			<button onClick={handleCheck}>CheckFun</button>
+			{/* <button onClick={handleCheck}>CheckFun</button> */}
 		</>
 	);
 };
