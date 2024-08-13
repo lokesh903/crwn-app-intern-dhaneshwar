@@ -1,7 +1,7 @@
 import React, { FormEvent } from 'react';
 import {
-	// PaymentElement,
-	// Elements,
+	PaymentElement,
+	Elements,
 	useStripe,
 	useElements,
 	CardElement,
@@ -20,6 +20,7 @@ const CheckoutForm: React.FC = () => {
 	// const { user } = useSelector((state: RootState) => state.user);
 	// const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	// const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+	console.log(cartItemsTotal);
 
 	const paymentHandler = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -31,12 +32,10 @@ const CheckoutForm: React.FC = () => {
 		// setIsProcessingPayment(true);
 
 		const response = await fetch('/.netlify/functions/create-payment-intent', {
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			method: 'POST',
 			body: JSON.stringify({ amount: cartItemsTotal * 100 }),
 		}).then(res => res.json());
+		console.log(response);
 
 		const {
 			paymentIntent: { client_secret },
@@ -65,17 +64,26 @@ const CheckoutForm: React.FC = () => {
 			}
 		}
 	};
+	const handleCheck = async () => {
+		const res = await fetch('/.netlify/functions/testing').then(res =>
+			res.json()
+		);
+		console.log(res);
+
+		// responseText.innerText = JSON.stringify(res);
+	};
 
 	return (
-		<form onSubmit={paymentHandler}>
-			<CardElement />
-			{/* <PaymentElement /> */}
-			<button type="submit" >
-				Pay
-			</button>
-			{/* Show error message to your customers */}
-			{/* {errorMessage && <div>{errorMessage}</div>} */}
-		</form>
+		<>
+			<form onSubmit={paymentHandler}>
+				<CardElement />
+				{/* <PaymentElement /> */}
+				<button type="submit">Pay</button>
+				{/* Show error message to your customers */}
+				{/* {errorMessage && <div>{errorMessage}</div>} */}
+			</form>
+			<button onClick={handleCheck}>CheckFun</button>
+		</>
 	);
 };
 

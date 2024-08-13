@@ -18,6 +18,7 @@ import { RootState } from '../utils/types/types';
 import { useSideDrawerContext } from '../context/SideBarDrawar.context';
 // import { useProductContext } from '../context';
 
+
 const MainLayout: React.FC = () => {
 	const [mount, setMount] = useState<boolean>(false);
 
@@ -31,7 +32,7 @@ const MainLayout: React.FC = () => {
 	// useEffect(() => {
 	// 	fetch('/config').then(async r => {
 	// 		console.log("ok");
-			
+
 	// 		const { publishableKey } = await r.json();
 	// 		console.log(publishableKey);
 	// 	});
