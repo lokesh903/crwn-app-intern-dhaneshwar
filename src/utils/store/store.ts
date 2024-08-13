@@ -1,7 +1,7 @@
 import { legacy_createStore as createStore } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from './reducers';
 
@@ -14,7 +14,10 @@ const persistConfig = {
 const persistedReducer = persistReducer<any, any>(persistConfig, rootReducer);
 
 export default () => {
-	let store = createStore(persistedReducer, composeWithDevTools());
+	let store = createStore(persistedReducer);
 	let persistor = persistStore(store);
 	return { store, persistor };
 };
+
+
+	// let store = createStore(persistedReducer, composeWithDevTools());
