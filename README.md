@@ -23,6 +23,18 @@ netlify dev
 
 [🔗 TECHNICAL PAPERS OF LEARNING PATH 2](https://github.com/Dhaneshwar7/Technical-Paper/tree/main)
 
-### 1. TopicWise .MD File - Specific
+### 2. TopicWise .MD File - Specific
+
+| TOPICS | LINKS |
+| --- | --- |
+| React Router| [React Router CheatSheet](https://github.com/Dhaneshwar7/Technical-Paper/blob/main/ReactRouter.md)|
+| Firebase| [Firebase CheatSheet](https://github.com/Dhaneshwar7/Technical-Paper/blob/main/Firebase.md)|
+| React Context API | [React Context API CheatSheet](https://github.com/Dhaneshwar7/Technical-Paper/blob/main/ReactContextAPI.md) |
+| React Flat Folder Structure | [React Flat Folder Structure CheatSheet](https://github.com/Dhaneshwar7/Technical-Paper/blob/main/ReactFlatFolderStructure.md) |
+| React Redux | [React Redux CheatSheet](https://github.com/Dhaneshwar7/Technical-Paper/blob/main/ReactRedux.md) |
+| Redux Persist | [Redux Persist CheatSheet](https://github.com/Dhaneshwar7/Technical-Paper/blob/main/ReduxPersist.md) |
+| Netlify | [Netlify CheatSheet](https://github.com/Dhaneshwar7/Technical-Paper/blob/main/Netlify.md) |
+| Serverless Functions in Netlify | [Serverless Functions in Netlify CheatSheet](https://github.com/Dhaneshwar7/Technical-Paper/blob/main/ServerlessFunctionsNetlify.md) |
+| Stripe with React.js | [Stripe with React.js CheatSheet](https://github.com/Dhaneshwar7/Technical-Paper/blob/main/StripeReact.md) |
 
 
