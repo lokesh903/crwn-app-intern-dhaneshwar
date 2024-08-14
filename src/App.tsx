@@ -12,7 +12,6 @@ import {
 import { MainLayout, ShopLayout } from './layouts';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import PaymentCompletion from './components/payment-form/PaymentCompletion';
 
 const App: React.FC = () => {
 	const { theme } = useThemeContext();
@@ -29,7 +28,6 @@ const App: React.FC = () => {
 						</Route>
 						<Route path="/shop/cart-checkout" element={<CartCheckoutPage />} />
 						<Route path="/authentication" element={<AuthenticationPage />} />
-						<Route path="/payment-completion" element={<PaymentCompletion />} />
 					</Route>
 				</Routes>
 			</ThemeProvider>

@@ -1,4 +1,4 @@
-import CartCheckout from './CartCheckout';
+import CartCheckout from '../cart-checkout/CartCheckout';
 import CartItems from './CartItems';
 import CartSidebar from './CartSideBar';
 

@@ -7,14 +7,14 @@ import {
 } from '../../utils/config/FirebaseAuthActions';
 // import { useUserDataContext } from '../../context';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../utils/types/types';
+import { useDispatch } from 'react-redux';
+// import { RootState } from '../../utils/types/types';
 import { asyncAddUser } from '../../utils/store/actions/action';
 
 const GoogleAuthButton: React.FC = () => {
 	const dispatch = useDispatch();
 	// const { setCurrentUser } = useUserDataContext();
-	const { user } = useSelector((state: RootState) => state.user);
+	// const { user } = useSelector((state: RootState) => state.user);
 	// console.log(user);
 
 	const navigate = useNavigate();

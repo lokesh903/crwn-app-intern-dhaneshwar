@@ -1,39 +1,33 @@
 import React, { FormEvent, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import LoadingButton from '@mui/lab/LoadingButton';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import BigHeading from '../headings/BigHeading';
+import { RootState } from '../../utils/types/types';
+import { asyncClearCart } from '../../utils/store/actions/cartAction';
+import { StripeCardElement } from '@stripe/stripe-js';
 import {
-	// PaymentElement,
-	// Elements,
+	PaymentElement,
 	useStripe,
 	useElements,
 	CardElement,
 } from '@stripe/react-stripe-js';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../utils/types/types';
-import { StripeCardElement } from '@stripe/stripe-js';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { Box } from '@mui/material';
-import { asyncClearCart } from '../../utils/store/actions/cartAction';
+import {
+	cardElementStyles,
+	cancelBtnStl,
+	formStl,
+	loadingBtnStl,
+} from './checkout.styles';
+
 const ifValidCardElement = (
 	card: StripeCardElement | null
 ): card is StripeCardElement => card !== null;
 
-const cardElementStyles = {
-	base: {
-		color: 'black',
-		fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-		fontSize: '16px',
-		'::placeholder': {
-			color: '#888',
-		},
-		backgroundColor: 'white',
-	},
-	invalid: {
-		color: '#dc3545',
-	},
-};
 interface CheckOutPropValue {
-	setCheckoutForm: React.Dispatch<React.SetStateAction<boolean>>;
+	handleClick: () => void;
 }
-const CheckoutForm: React.FC<CheckOutPropValue> = ({ setCheckoutForm }) => {
+const CheckoutPaymentForm: React.FC<CheckOutPropValue> = ({ handleClick }) => {
 	const dispatch = useDispatch();
 	const stripe = useStripe();
 	const elements = useElements();
@@ -42,11 +36,9 @@ const CheckoutForm: React.FC<CheckOutPropValue> = ({ setCheckoutForm }) => {
 	// console.log(user);
 	// console.log(user.displayName);
 	const { cartItemsTotal } = useSelector((state: RootState) => state.cart);
-	// console.log(cartItemsTotal);
 
 	const paymentHandler = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
 		if (!stripe || !elements) {
 			return;
 		}
@@ -74,12 +66,12 @@ const CheckoutForm: React.FC<CheckOutPropValue> = ({ setCheckoutForm }) => {
 		// console.log(paymentResult);
 		setIsProcessingPayment(false);
 		if (paymentResult.error) {
-			console.error(paymentResult.error);
-			alert(paymentResult.error);
+			console.error(paymentResult.error.message);
+			alert(paymentResult.error.message);
 		} else {
 			if (paymentResult.paymentIntent.status === 'succeeded') {
 				alert('Payment Successful');
-				setCheckoutForm(prev => !prev);
+				handleClick();
 				dispatch(asyncClearCart());
 			}
 		}
@@ -88,48 +80,31 @@ const CheckoutForm: React.FC<CheckOutPropValue> = ({ setCheckoutForm }) => {
 	// 	const res = await fetch('/.netlify/functions/testing').then(res =>
 	// 		res.json()
 	// 	);
-	// 	console.log(res);
 	// };
-
 	return (
-		<>
-			<form onSubmit={paymentHandler}>
-				<Box
-					sx={{
-						px: 3,
-						py: 3,
-						bgcolor: 'background.paper',
-						textAlign: 'center',
-					}}
+		<form onSubmit={paymentHandler}>
+			<Box sx={{ ...formStl }}>
+				<BigHeading>Payment Details</BigHeading>
+				{/* <PaymentElement id="payment-element" /> */}
+				<CardElement options={{ style: cardElementStyles }} />
+				<LoadingButton
+					type="submit"
+					loading={isProcessingPayment}
+					loadingIndicator="Loading…"
+					variant="outlined"
+					sx={{ ...loadingBtnStl, alignSelf: 'center' }}
 				>
-					<CardElement options={{ style: cardElementStyles }} />
-					<LoadingButton
-						type="submit"
-						loading={isProcessingPayment}
-						loadingIndicator="Loading…"
-						variant="outlined"
-						sx={{
-							bgcolor: 'background.default',
-							color: 'primary',
-							px: 5,
-							mt: 2,
-							mb: 1,
-							'&:hover': {
-								color: 'background.default',
-								bgcolor: 'green',
-								borderRadius: 2,
-								textAlign: 'end',
-							},
-						}}
-					>
-						Pay
-					</LoadingButton>
-				</Box>
-				{/* <PaymentElement /> */}
-			</form>
-			{/* <button onClick={handleCheck}>CheckFun</button> */}
-		</>
+					Pay
+				</LoadingButton>
+				<Button
+					onClick={handleClick}
+					sx={{ ...cancelBtnStl, alignSelf: 'center' }}
+				>
+					Close
+				</Button>
+			</Box>
+		</form>
 	);
 };
 
-export default CheckoutForm;
+export default CheckoutPaymentForm;
