@@ -33,9 +33,11 @@ export default {
 
 ## Netlify Local Run Command
 ```
+-
 npm install
 
 netlify dev
+
 ```
 
 
