@@ -21,7 +21,7 @@ netlify dev
 ### 1. ALL .MD File Here on this Links
 [🔗 TECHNICAL PAPERS OF LEARNING PATH 2](https://github.com/Dhaneshwar7/Technical-Paper/tree/main)
 
-[🔗 TECHNICAL PAPERS OF LEARNING PATH 2](https://github.com/Dhaneshwar7/Technical-Paper/tree/main)
+[🔗 Full All TOPICS CHEATSHEET IN ONE PLACE ](https://github.com/Dhaneshwar7/Technical-Paper/blob/main/README.md)
 
 ### 2. TopicWise .MD File - Specific
 
