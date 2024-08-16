@@ -14,7 +14,12 @@ interface CartItem {
 	price: number;
 	quantity: number;
 }
-
+const navLinks = [
+	{ id: 1, link: 'home' },
+	{ id: 2, link: 'about' },
+	{ id: 3, link: 'contactus' },
+	{ id: 4, link: 'auth' },
+];
 interface CartItemsProps {
 	cartItems: CartItem[];
 	cartItemCount: number;
