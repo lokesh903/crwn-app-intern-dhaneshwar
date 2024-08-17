@@ -50,7 +50,10 @@ const CartCheckout: React.FC = () => {
 						<Portal>
 							<Box sx={paymentStyle}>
 								<Elements stripe={stripePromise}>
-									<CheckOutPaymentForm handleClick={handleClick} />
+									<CheckOutPaymentForm
+										handleClick={handleClick}
+										cartItemsTotal={cartItemsTotal}
+									/>
 								</Elements>
 							</Box>
 						</Portal>

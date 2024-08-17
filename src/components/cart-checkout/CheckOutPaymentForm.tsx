@@ -25,9 +25,13 @@ const ifValidCardElement = (
 ): card is StripeCardElement => card !== null;
 
 interface CheckOutPropValue {
+	cartItemsTotal: number;
 	handleClick: () => void;
 }
-const CheckoutPaymentForm: React.FC<CheckOutPropValue> = ({ handleClick }) => {
+const CheckoutPaymentForm: React.FC<CheckOutPropValue> = ({
+	handleClick,
+	cartItemsTotal,
+}) => {
 	const dispatch = useDispatch();
 	const stripe = useStripe();
 	const elements = useElements();
@@ -35,7 +39,6 @@ const CheckoutPaymentForm: React.FC<CheckOutPropValue> = ({ handleClick }) => {
 	// const { user } = useSelector((state: RootState) => state.user);
 	// console.log(user);
 	// console.log(user.displayName);
-	const { cartItemsTotal } = useSelector((state: RootState) => state.cart);
 
 	const paymentHandler = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
