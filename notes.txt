@@ -1,5 +1,0 @@
-Link READING FOR AUTOMATIC DEPLOY 
-
-https://hengwang.medium.com/automatically-deploy-your-website-to-firebase-hosting-with-github-actions-76d7a8598a5e
-
-
