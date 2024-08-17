@@ -1,3 +1,31 @@
+# crwn-app-intern-dhaneshwar
+## React + TypeScript + Vite
+This are the Step for Run this Project in your System
+1. Clone or Fork this Repo
+2. Run This Commands
+## Netlify Local Run Command
+```
+npm install
+netlify dev
+```
+## 🗒️ DOCUMENTAION | CHEATSHEET | LEARNING | SOLUTIONS
+### 1. ALL .MD File Here on this Links
+[🔗 TECHNICAL PAPERS OF LEARNING PATH 2](https://github.com/Dhaneshwar7/Technical-Paper/tree/main)
+
+[🔗 Full All TOPICS CHEATSHEET IN ONE PLACE ](https://github.com/Dhaneshwar7/Technical-Paper/blob/main/README.md)
+### 2. TopicWise .MD File - Specific
+| TOPICS | LINKS |
+| --- | --- |
+| React Router| [React Router CheatSheet](#1-react-router-cheatsheet)|
+| Firebase| [Firebase CheatSheet](#2-firebase-cheatsheet)|
+| React Context API | [React Context API CheatSheet](#3-react-context-api-cheatsheet)|
+| React Flat Folder Structure | [React Flat Folder Structure CheatSheet](#4-react-flat-folder-structure-cheatsheet) |
+| React Redux | [React Redux CheatSheet](#5-react-redux-cheatsheet)|
+| Redux Persist | [Redux Persist CheatSheet](#6-redux-persist-cheatsheet)|
+| Netlify | [Netlify CheatSheet](#7-netlify-cheatsheet)|
+| Stripe with React.js | [Stripe with React.js CheatSheet](#8-stripe-payment-with-react-js-cheatsheet)|
+
+
 # Technical-Paper
 These are my Learning Notes of All Technologies in different .MD files
 
