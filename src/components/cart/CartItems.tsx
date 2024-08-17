@@ -2,10 +2,10 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { ProductsContainer } from '../../containers';
 import BigHeading from '../headings/BigHeading';
-import { CartProduct } from '../product';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { CustomNavButton } from '../button';
 import { Link } from 'react-router-dom';
+import { CartProduct } from '../product';
 
 interface CartItem {
 	id: number;
@@ -14,12 +14,6 @@ interface CartItem {
 	price: number;
 	quantity: number;
 }
-const navLinks = [
-	{ id: 1, link: 'home' },
-	{ id: 2, link: 'about' },
-	{ id: 3, link: 'contactus' },
-	{ id: 4, link: 'auth' },
-];
 interface CartItemsProps {
 	cartItems: CartItem[];
 	cartItemCount: number;
