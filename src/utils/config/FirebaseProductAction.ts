@@ -3,7 +3,6 @@ import {
 	collection,
 	doc,
 	DocumentData,
-	getDoc,
 	getDocs,
 	query,
 	QueryDocumentSnapshot,

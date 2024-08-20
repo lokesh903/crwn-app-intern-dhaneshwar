@@ -18,7 +18,7 @@ import {
 	getAllCategories,
 } from '@src/utils/store/reducers/productsReducer';
 import { fetchCurrentUser } from '@src/utils/store/reducers/userReducer';
-import { asyncAddCategoriesDataToFirestore } from '@src/utils/config/FirebaseProductAction';
+// import { asyncAddCategoriesDataToFirestore } from '@src/utils/config/FirebaseProductAction';
 // import { useProductContext } from '../context';
 
 const MainLayout: React.FC = () => {
@@ -38,9 +38,9 @@ const MainLayout: React.FC = () => {
 	// };
 	useEffect(() => {
 		dispatch(fetchCurrentUser() as any);
-		// dispatch(getAllData() as any);
-		// dispatch(getAllCategories() as any);
-		console.log('chalala');
+		dispatch(getAllData() as any);
+		dispatch(getAllCategories() as any);
+		// console.log('chalala');
 		// addAllCategoriesToDB();
 	}, [dispatch]);
 

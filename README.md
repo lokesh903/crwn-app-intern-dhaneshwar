@@ -525,3 +525,131 @@ exports.handler = async function(event, context) {
 ## Some Reading Notes 
 ###  Stripe 
 Stripe's payments platform lets you accept credit cards, debit cards, and popular payment methods around the world—all with a single integration. Get access to advanced payments features like 3D Secure 2 authentication, card updates, automated retries, and more.
+
+
+---
+# 9. React Hook Form
+<div align="center">
+<img src="" alt="React Hook Form img" width="300" height="120" /> 	
+</div>
+
+<details>
+<summary><strong>TypeScript</strong></summary>
+
+```typescript
+const example: string = 'Hello, TypeScript!';
+console.log(example);
+
+```
+</details>
+
+
+<details>
+<summary><strong>JavaScript</strong></summary>
+	
+```js
+const example = 'Hello, JavaScript!';
+console.log(example);
+```
+</details>
+
+>[!IMPORTANT]
+> Some Documentation Stuff
+
+[React Hook Docs 🔗](https://react-hook-form.com/get-started#Quickstart)
+
+### What is React Hook Form?
+React Hook Form takes a slightly different approach than other form libraries in the React ecosystem by using uncontrolled inputs with ref instead of depending on the state to control the inputs. This approach makes the forms more performant and reduces the number of re-renders. This also means that React Hook Form offers seamless integration with UI libraries because most libraries support the ref attribute.
+
+>To install React Hook Form, run the following command:
+```
+npm install react-hook-form
+```
+>First, import the useForm Hook from the react-hook-form package:
+```js
+import { useForm } from "react-hook-form";
+```
+>Then, inside your component, use the Hook as follows:
+```js
+const { register, handleSubmit } = useForm();
+```
+The useForm Hook returns an object containing a few properties. For now, we’ll only require `register` and `handleSubmit`
+
+>To register the input, we’ll pass the register method into the input field as such:
+```js
+<input type="text" name="firstName" {...register('firstName')} />
+```
+	
+```js
+import React from "react";
+import { useForm } from "react-hook-form";
+
+const RegisterForm = () => {
+  const { register, handleSubmit } = useForm();
+  const handleRegistration = (data) => console.log(data); //other Logic of Submit Form
+
+  return (
+    <form onSubmit={handleSubmit(handleRegistration)}>
+      <div>
+        <label>Name</label>
+        <input name="name" {...register('name')} />
+      </div>
+      <div>
+        <label>Email</label>
+        <input type="email" name="email" {...register('email')} />
+      </div>
+      <div>
+        <label>Password</label>
+        <input type="password" name="password" {...register('password')} />
+      </div>
+      <button>Submit</button>
+    </form>
+  );
+};
+export default RegisterForm;
+```
+
+<details>
+<summary><strong>TypeScript</strong></summary>
+	
+```typescript
+import { useForm, SubmitHandler } from "react-hook-form"
+type FormInputs = {
+  email: string
+  password: string
+}
+export default function SignInForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>()
+
+  const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data)
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input defaultValue="test" {...register("email",{ required: true, maxLength: 15 })} />
+	{errors?.name && errors.name.message}
+
+      <input {...register("password", { required: true })} />
+      {errors?.pas && <span>This field is required</span>}
+      <input type="submit" />
+    </form>
+  )
+}
+```
+</details>
+
+> Applicable validation
+React Hook Form makes form validation easy by aligning with the existing HTML standard for form validation.
+
+ ### List of validation rules supported:
+ 
+`required`
+`min`
+`max`
+`minLength`
+`maxLength`
+`pattern`
+`validate`

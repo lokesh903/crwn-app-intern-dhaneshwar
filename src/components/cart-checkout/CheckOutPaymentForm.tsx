@@ -1,10 +1,10 @@
 import React, { FormEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import BigHeading from '../headings/BigHeading';
-import { RootState } from '../../utils/types/types';
+// import { RootState } from '../../utils/types/types';
 import { asyncClearCart } from '../../utils/store/actions/cartAction';
 import { StripeCardElement } from '@stripe/stripe-js';
 import {
