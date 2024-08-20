@@ -6,6 +6,7 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { CustomNavButton } from '../button';
 import { Link } from 'react-router-dom';
 import { CartProduct } from '../product';
+import SubHeading from '../headings/SubHeading';
 
 interface CartItem {
 	id: number;
@@ -29,10 +30,10 @@ const CartItems: React.FC<CartItemsProps> = ({
 			<ProductsContainer
 				sx={{
 					// bgcolor: 'skyblue',
-					boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.25)',
-					height: '100%',
 					pb: 2,
-					alignItems: 'center',
+					minHeight: '100vh',
+					height: 'auto',
+					flexDirection: 'column',
 					justifyContent: 'space-between',
 				}}
 			>
@@ -43,7 +44,6 @@ const CartItems: React.FC<CartItemsProps> = ({
 						alignItems: 'center',
 						justifyContent: 'center',
 						flexDirection: 'column',
-						// bgcolor:'gray'
 						gap: 1,
 					}}
 					role="presentation"
@@ -59,25 +59,30 @@ const CartItems: React.FC<CartItemsProps> = ({
 					>
 						Cart Items : {cartItemCount}
 					</BigHeading>
-					{cartItems?.map(product => (
-						<CartProduct key={product.id} product={product} />
-					))}
+					{cartItemCount > 0 ? (
+						cartItems?.map(product => (
+							<CartProduct key={product.id} product={product} />
+						))
+					) : (
+						<SubHeading>No Products in Cart !!</SubHeading>
+					)}
 				</Box>
-				<Link to="/shop/cart-checkout">
-					<CustomNavButton
-						sx={{
-							fontSize: { xs: 12, md: 20 },
-							width: '100%',
-							bgcolor: 'rgba(0, 128, 0, 0.5)',
-							'&:hover': { bgcolor: 'rgba(0, 128, 0, 0.7)' },
-						}}
-					>
+				<CustomNavButton
+					sx={{
+						fontSize: { xs: 12, md: 20 },
+						width: '100%',
+						bgcolor: 'rgba(0, 128, 0, 0.5)',
+						'&:hover': { bgcolor: 'rgba(0, 128, 0, 0.7)' },
+					}}
+					disabled={cartItemCount === 0}
+				>
+					<Link to="/shop/cart-checkout">
 						{' '}
 						Go To Checkout &nbsp;
 						<ShoppingCartCheckoutIcon fontSize="medium" /> &nbsp;₹&nbsp;
 						{cartItemsTotal}
-					</CustomNavButton>
-				</Link>
+					</Link>
+				</CustomNavButton>
 			</ProductsContainer>
 		</>
 	);

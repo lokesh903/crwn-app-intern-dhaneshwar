@@ -24,11 +24,11 @@ const ProductCard = React.memo(({ product }: { product: ProductTypeValue }) => {
 			// handleAddToCart(product);
 			dispatch(asyncAddItemToCart(product));
 			toast.success('Product Added to Cart', {
-				position: 'bottom-right',
+				position: 'bottom-center',
 			});
 		} else {
 			toast.info('Product Already Added', {
-				position: 'bottom-right',
+				position: 'bottom-center',
 			});
 		}
 	};
@@ -44,7 +44,6 @@ const ProductCard = React.memo(({ product }: { product: ProductTypeValue }) => {
 				mb: { xs: 6, md: 5 },
 				ml: 0,
 				p: 0,
-				height: 'fit-content',
 				width: '100%',
 				display: 'flex',
 				alignItems: 'center',

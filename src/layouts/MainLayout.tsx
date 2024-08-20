@@ -10,13 +10,15 @@ import { CssBaseline } from '@mui/material';
 import { CartItems, CartSidebar } from '../components';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import {  asyncSetError } from '../utils/store/actions/action';
+import { asyncSetError } from '../utils/store/actions/action';
 import { RootState } from '../utils/types/types';
-import { useSideDrawerContext } from '../context/SideBarDrawar.context';
+import { useSideDrawerContext } from '@src/context/SideBarDrawar.context';
 import {
 	getAllData,
-} from '../utils/store/reducers/productsReducer';
-import { fetchCurrentUser } from '../utils/store/reducers/userReducer';
+	getAllCategories,
+} from '@src/utils/store/reducers/productsReducer';
+import { fetchCurrentUser } from '@src/utils/store/reducers/userReducer';
+import { asyncAddCategoriesDataToFirestore } from '@src/utils/config/FirebaseProductAction';
 // import { useProductContext } from '../context';
 
 const MainLayout: React.FC = () => {
@@ -30,9 +32,16 @@ const MainLayout: React.FC = () => {
 		(state: RootState) => state.cart
 	);
 	// console.log(allProducts);
+	// const addAllCategoriesToDB = async () => {
+	// 	const data = await asyncAddCategoriesDataToFirestore();
+	// 	console.log(data);
+	// };
 	useEffect(() => {
 		dispatch(fetchCurrentUser() as any);
-		dispatch(getAllData() as any);
+		// dispatch(getAllData() as any);
+		// dispatch(getAllCategories() as any);
+		console.log('chalala');
+		// addAllCategoriesToDB();
 	}, [dispatch]);
 
 	/* Context DAtA Code ---- */
@@ -63,7 +72,6 @@ const MainLayout: React.FC = () => {
 	useEffect(() => {
 		const showToastMessage = (error: any) => {
 			toast.success(error);
-			// setError(null);
 			dispatch(asyncSetError(null));
 		};
 		if (error) {

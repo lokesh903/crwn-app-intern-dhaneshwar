@@ -3,13 +3,12 @@ import { BigHeading, ProductCard, SubHeading } from '../../components';
 import { ProductGridContainer, ProductsContainer } from '../../containers';
 import { RootState } from '../../utils/types/types';
 import { useSelector } from 'react-redux';
-import Loading from '../../assets/loadingg.gif';
+import Loading from '@src/assets/loadingg.gif';
 
 const AllProducts: React.FC = () => {
 	const { allProducts, loading } = useSelector(
 		(state: RootState) => state.products
 	);
-	// console.log(error);
 
 	return (
 		<>

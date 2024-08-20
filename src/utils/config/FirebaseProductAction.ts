@@ -1,14 +1,16 @@
 import {
+	addDoc,
 	collection,
 	doc,
 	DocumentData,
+	getDoc,
 	getDocs,
 	query,
 	QueryDocumentSnapshot,
 	writeBatch,
 } from 'firebase/firestore';
 import { db } from './Firebase';
-import { SHOP_DATA_PRODUCTS } from './ClothingData';
+import { PRODUCT_CATEGORIES, SHOP_DATA_PRODUCTS } from './ClothingData';
 
 const PRODUCTS_DATA = SHOP_DATA_PRODUCTS;
 
@@ -51,4 +53,36 @@ export const asyncAddProductDataToFirestore = async () => {
 	});
 	await batch.commit();
 	return 'All Data Added Successfully';
+};
+
+/* --- SET/ADD ALL CATEGORIES DATA IN FIRESTORE --- */
+export const asyncAddCategoriesDataToFirestore = async () => {
+	try {
+		const collectionRefForData = collection(db, 'categories');
+		const promises = PRODUCT_CATEGORIES.map(async cat => {
+			await addDoc(collectionRefForData, cat);
+		});
+		await Promise.all(promises);
+		return 'Product categories added successfully!';
+	} catch (error) {
+		console.error('Error adding product categories: ', error);
+		return 'Error adding product categories.';
+	}
+};
+
+export const asyncGetAllCategoriesFromFirestore = async () => {
+	const collectionRef = collection(db, 'categories');
+	const q = query(collectionRef);
+	const querySnapshot = await getDocs(q);
+	// console.log(querySnapshot);
+	const allCategoriesCollection = querySnapshot.docs.map(
+		(docSnapShot: QueryDocumentSnapshot<DocumentData>) => {
+			const data = docSnapShot.data();
+			return {
+				id: docSnapShot.id,
+				...data,
+			};
+		}
+	);
+	return allCategoriesCollection;
 };

@@ -18,7 +18,13 @@ const App: React.FC = () => {
 	const { theme } = useThemeContext();
 	return (
 		<>
-			<ToastContainer />
+			<ToastContainer
+				style={{
+					width: '280px',
+					fontSize: '15px',
+					textAlign: 'center',
+				}}
+			/>
 			<ThemeProvider theme={theme}>
 				<Routes>
 					<Route path="/" element={<MainLayout />}>

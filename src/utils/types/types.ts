@@ -15,10 +15,18 @@ export interface ProductTypeParent {
 	title: string;
 	items: ProductTypeValue[];
 }
+
+export interface CategoryTypeValue {
+	id: number;
+	imageUrl: string;
+	route: string;
+	title: string;
+}
 export interface ProductContextValue {
 	allProducts: ProductTypeParent[];
 	loading: boolean;
 	error: string | null;
+	categories: CategoryTypeValue[];
 }
 
 /* ----- Cart Item Prop ------- */

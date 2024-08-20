@@ -52,7 +52,12 @@ const CartProduct = React.memo(({ product }: { product: Item }) => {
 
 	return (
 		<Card
-			sx={{ display: 'flex', height: 80, width: '100%', bgcolor: 'secondary' }}
+			sx={{
+				display: 'flex',
+				height: 80,
+				width: '100%',
+				bgcolor: 'secondary',
+			}}
 		>
 			<CardMedia
 				component="img"

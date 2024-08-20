@@ -13,7 +13,7 @@ const ProductsContainer: React.FC<CommonProp> = ({
 			sx={[
 				{
 					// bgcolor: 'gray',
-					border: '2px solid black ',
+					// borderLeft: '2px solid black ',
 					pt: 2,
 					pb: 8,
 					display: 'flex',

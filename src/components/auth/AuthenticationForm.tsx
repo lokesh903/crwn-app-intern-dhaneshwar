@@ -35,7 +35,7 @@ function ColorSchemeToggle(props: IconButtonProps) {
 			onClick={event => {
 				setMode(mode === 'light' ? 'dark' : 'light');
 				onClick?.(event);
-				console.log(event);
+				// console.log(event);
 			}}
 			{...other}
 		>
@@ -127,24 +127,13 @@ export default function JoySignInSideTemplate() {
 						}}
 					>
 						<Stack gap={4} sx={{ mb: 2 }}>
-							<Stack gap={1}>
-								<Typography component="h1" level="h3">
-									{formChange ? 'Sign In' : 'Sign Up'}
-								</Typography>
-								<Typography level="body-sm">
-									{formChange ? 'New to company? ' : `Don't have an Account ?`}{' '}
-									&nbsp;
-									<Link
-										to={`#${formChange ? 'sign-in' : 'sign-up'}`}
-										onClick={handleFormChange}
-									>
-										{formChange ? 'Sign up!' : 'Sign in!'}
-									</Link>
-									{/* <Link href="#replace-with-a-link" level="title-sm">
-										Sign up!
-									</Link> */}
-								</Typography>
-							</Stack>
+							<Typography
+								component="h1"
+								sx={{ alignSelf: 'center' }}
+								level="h3"
+							>
+								{formChange ? 'Sign In' : 'Sign Up'}
+							</Typography>{' '}
 							{formChange ? <GoogleAuthButton /> : null}
 						</Stack>
 						{formChange ? (
@@ -162,7 +151,20 @@ export default function JoySignInSideTemplate() {
 						<Stack gap={4} sx={{ mt: 2 }}>
 							{formChange ? <SignInAuthForm /> : <SignUpAuthForm />}
 						</Stack>
+						<Stack gap={1}>
+							<Typography level="body-sm">
+								{formChange ? 'New to company? ' : `Already have an Account ?`}{' '}
+								&nbsp;
+								<Link
+									to={`#${formChange ? 'sign-in' : 'sign-up'}`}
+									onClick={handleFormChange}
+								>
+									{formChange ? 'Sign up!' : 'Sign in!'}
+								</Link>
+							</Typography>
+						</Stack>
 					</Box>
+
 					<Box component="footer" sx={{ py: 3 }}>
 						<Typography level="body-xs" textAlign="center">
 							© Trendz {new Date().getFullYear()}

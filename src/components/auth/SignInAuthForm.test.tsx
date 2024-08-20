@@ -6,87 +6,54 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { asyncSignInUserWithEmailAndPassword } from '../../utils/config/FirebaseAuthActions';
-// import { useUserDataContext } from '../../context';
+import { asyncSignInUserWithEmailAndPassword } from '@src/utils/config/FirebaseAuthActions';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { asyncAddUser } from '../../utils/store/actions/action';
+import { asyncAddUser } from '@src/utils/store/actions/action';
 
-interface FormElements extends HTMLFormControlsCollection {
-	email: HTMLInputElement;
-	password: HTMLInputElement;
-	persistent: HTMLInputElement;
-}
-interface SignInFormElement extends HTMLFormElement {
-	readonly elements: FormElements;
-}
-interface defaultFormFieldsValue {
+interface IFormInput {
 	email: string;
 	password: string;
 }
-const defaultFormFields: defaultFormFieldsValue = {
-	email: '',
-	password: '',
-};
-
 const SingInAuthForm: React.FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	// const { setCurrentUser } = useUserDataContext();
+	const { register, handleSubmit } = useForm<IFormInput>();
 
-	const [formDetails, setFormDetails] =
-		React.useState<defaultFormFieldsValue>(defaultFormFields);
-
-	const handleOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setFormDetails({ ...formDetails, [e.target.name]: e.target.value });
-	};
-	const handleFormSubmit = async (e: React.FormEvent<SignInFormElement>) => {
-		e.preventDefault();
+	const onSubmit: SubmitHandler<IFormInput> = async data => {
 		try {
-			const { email, password } = formDetails;
+			const { email, password } = data;
 			const { user } = await asyncSignInUserWithEmailAndPassword(
 				email,
 				password
 			);
-			// console.log(user);
-			/* --- Context Api Set User ---  */
-			// setCurrentUser(user);
-
 			/* --- Redux State Set User ---  */
-			dispatch(asyncAddUser(user));
-			setFormDetails({
-				email: '',
-				password: '',
+			toast.success('Sign In Successful ! ✅', {
+				position: 'top-center',
 			});
+			dispatch(asyncAddUser(user));
 			if (user) {
 				navigate('/');
 			}
 		} catch (error: any) {
 			toast.error(error.message);
-			// console.error(error?.message);
 		}
 	};
+
 	return (
-		<form onSubmit={handleFormSubmit}>
+		<form onSubmit={handleSubmit(onSubmit)}>
 			<FormControl required>
 				<FormLabel>Email</FormLabel>
-				<Input
-					type="email"
-					name="email"
-					autoComplete="email"
-					onChange={handleOnchange}
-					value={formDetails.email}
-				/>
+				<Input type="email" {...register('email')} autoComplete="email" />
 			</FormControl>
 			<FormControl required>
 				<FormLabel>Password</FormLabel>
 				<Input
 					type="password"
 					autoComplete="current-password"
-					name="password"
-					onChange={handleOnchange}
-					value={formDetails.password}
+					{...register('password')}
 				/>
 			</FormControl>
 			<Stack gap={4} sx={{ mt: 2 }}>
