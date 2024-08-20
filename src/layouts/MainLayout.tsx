@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import NavBar from '../pages/navigation/NavBar';
 import { CssBaseline } from '@mui/material';
-import { asyncCurrentLoggedInUser } from '../utils/config/FirebaseAuthActions';
 // import {
 // 	useCartDataContext,
 // 	useProductContext,
@@ -11,13 +10,14 @@ import { asyncCurrentLoggedInUser } from '../utils/config/FirebaseAuthActions';
 import { CartItems, CartSidebar } from '../components';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { asyncAddUser, asyncSetError } from '../utils/store/actions/action';
-import { asyncGetAllProductsDataFromFirestore } from '../utils/config/FirebaseProductAction';
-import { asyncGetAllProducts } from '../utils/store/actions/productAction';
+import {  asyncSetError } from '../utils/store/actions/action';
 import { RootState } from '../utils/types/types';
 import { useSideDrawerContext } from '../context/SideBarDrawar.context';
+import {
+	getAllData,
+} from '../utils/store/reducers/productsReducer';
+import { fetchCurrentUser } from '../utils/store/reducers/userReducer';
 // import { useProductContext } from '../context';
-
 
 const MainLayout: React.FC = () => {
 	const [mount, setMount] = useState<boolean>(false);
@@ -29,36 +29,11 @@ const MainLayout: React.FC = () => {
 	const { cartItems, cartItemsTotal, cartItemCount } = useSelector(
 		(state: RootState) => state.cart
 	);
-	// useEffect(() => {
-	// 	fetch('/config').then(async r => {
-	// 		console.log("ok");
-
-	// 		const { publishableKey } = await r.json();
-	// 		console.log(publishableKey);
-	// 	});
-	// }, []);
-
 	// console.log(allProducts);
 	useEffect(() => {
-		const fetchCurrentUser = async () => {
-			const user = await asyncCurrentLoggedInUser();
-			if (user) {
-				// setCurrentUser(user);
-				dispatch(asyncAddUser(user));
-			}
-		};
-		fetchCurrentUser();
-		const getAllData = async () => {
-			try {
-				const data = await asyncGetAllProductsDataFromFirestore();
-				// console.log(data);
-				dispatch(asyncGetAllProducts(data));
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		getAllData();
-	}, []);
+		dispatch(fetchCurrentUser() as any);
+		dispatch(getAllData() as any);
+	}, [dispatch]);
 
 	/* Context DAtA Code ---- */
 	const { sideDrawerState, toggleDrawer } = useSideDrawerContext();

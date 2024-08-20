@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useOutletContext, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BigHeading, ProductCard, SubHeading } from '../../components';
 import { ProductGridContainer, ProductsContainer } from '../../containers';
-import { ProductContextValue, ProductTypeValue } from '../../utils/types/types';
+import { ProductTypeValue, RootState } from '../../utils/types/types';
+import { useSelector } from 'react-redux';
+import Loading from '../../assets/loadingg.gif';
 
 const CategoryPreview: React.FC = () => {
 	const { categoryName } = useParams<{ categoryName: string | undefined }>();
-	const { allProducts } = useOutletContext<ProductContextValue>();
+	const { allProducts, loading } = useSelector(
+		(state: RootState) => state.products
+	);
+	// console.log(error);
 	const [categoryProducts, setCategoryProducts] = useState<
 		ProductTypeValue[] | null
 	>(null);
@@ -29,13 +34,19 @@ const CategoryPreview: React.FC = () => {
 	return (
 		<>
 			<BigHeading>Sorted Category Wise Product</BigHeading>
-			<ProductsContainer sx={{}}>
-				<SubHeading>{categoryName?.toUpperCase()}</SubHeading>
-				<ProductGridContainer>
-					{categoryProducts?.map(product => (
-						<ProductCard key={product.id} product={product} />
-					))}
-				</ProductGridContainer>
+			<ProductsContainer sx={{ minHeight: loading ? '70vh' : '' }}>
+				{loading ? (
+					<img src={Loading} alt="Loading Icon..." />
+				) : (
+					<>
+						<SubHeading>{categoryName?.toUpperCase()}</SubHeading>
+						<ProductGridContainer>
+							{categoryProducts?.map(product => (
+								<ProductCard key={product.id} product={product} />
+							))}
+						</ProductGridContainer>
+					</>
+				)}
 			</ProductsContainer>
 		</>
 	);

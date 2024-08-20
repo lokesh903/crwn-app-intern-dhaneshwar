@@ -17,6 +17,8 @@ export interface ProductTypeParent {
 }
 export interface ProductContextValue {
 	allProducts: ProductTypeParent[];
+	loading: boolean;
+	error: string | null;
 }
 
 /* ----- Cart Item Prop ------- */

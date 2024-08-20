@@ -9,7 +9,7 @@ export const asyncGetAllProducts = (value: object) => ({
 	payload: value,
 });
 
-export const asyncFetchProductsErroR = (value: string) => ({
+export const asyncFetchProductsError = (value: string) => ({
 	type: ProductActionTypes.FETCH_PRODUCTS_ERROR,
 	payload: value,
 });

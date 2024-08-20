@@ -1,3 +1,12 @@
+import { ThunkAction } from 'redux-thunk';
+import { ProductContextValue, RootState } from '../../types/types';
+import { asyncGetAllProductsDataFromFirestore } from '../../config/FirebaseProductAction';
+import {
+	asyncFetchAllProducts,
+	asyncFetchProductsError,
+	asyncGetAllProducts,
+} from '../actions/productAction';
+
 export enum ProductActionTypes {
 	GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS',
 	FETCH_PRODUCTS = 'FETCH_PRODUCTS',
@@ -13,11 +22,7 @@ export interface ProductTypeParent {
 	title: string;
 	items: ProductItemTypeValue[];
 }
-export interface ProductContextValue {
-	allProducts: ProductTypeParent[];
-	loading: boolean;
-	error: string | null;
-}
+
 const initialProduct: ProductContextValue = {
 	allProducts: [],
 	loading: false,
@@ -48,10 +53,28 @@ const productsReducer = (
 		case ProductActionTypes.FETCH_PRODUCTS_ERROR:
 			return {
 				...productState,
+				loading: false,
 				error: action.payload || 'Something went Wrong',
 			};
 		default:
 			return productState;
 	}
 };
+
 export default productsReducer;
+
+export const getAllData =
+	(): ThunkAction<void, RootState, unknown, any> => async dispatch => {
+		dispatch(asyncFetchAllProducts());
+		try {
+			const data = await asyncGetAllProductsDataFromFirestore();
+			// console.log(data);
+			if (data) {
+				dispatch(asyncGetAllProducts(data));
+			}
+		} catch (error) {
+			const typedError = error as Error;
+			dispatch(asyncFetchProductsError(typedError.message));
+			console.log(typedError);
+		}
+	};
