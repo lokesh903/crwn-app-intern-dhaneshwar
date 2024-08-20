@@ -17,7 +17,7 @@ const AllProducts: React.FC = () => {
 			<ProductsContainer sx={{ minHeight: '70vh' }}>
 				{loading ? (
 					// <SubHeading>Loading..</SubHeading>
-					<img src={Loading} alt="Loading Icon..." />
+					<img src={Loading} alt="Loading Icon...." />
 				) : (
 					allProducts &&
 					allProducts.map(category => (
